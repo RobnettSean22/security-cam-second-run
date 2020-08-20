@@ -1,0 +1,54 @@
+{
+  "status": [
+    {
+      "deviceId": 1,
+      "active": true,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 2,
+      "active": true,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 3,
+      "active": false,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 4,
+      "active": true,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 5,
+      "active": false,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 6,
+      "active": true,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 7,
+      "active": false,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 8,
+      "active": false,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 9,
+      "active": true,
+      "thumbnail": "http://placekitten.com/200/300"
+    },
+    {
+      "deviceId": 10,
+      "active": true,
+      "thumbnail": "http://placekitten.com/200/300"
+    }
+  ]
+}

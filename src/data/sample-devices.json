@@ -1,0 +1,33 @@
+{
+  "devices": [{
+    "name": "Lobby",
+    "id": 1
+  }, {
+    "name": "Dining Hall",
+    "id": 2
+  }, {
+    "name": "Ballroom",
+    "id": 3
+  }, {
+    "name": "Meeting Room",
+    "id": 4
+  }, {
+    "name": "Hallway One",
+    "id": 5
+  }, {
+    "name": "Arboretum",
+    "id": 6
+  }, {
+    "name": "Grand Hall",
+    "id": 7
+  }, {
+    "name": "Main Perimeter - Inner Security Checkpoint",
+    "id": 8
+  }, {
+    "name": "Recreation Room",
+    "id": 9
+  }, {
+    "name": "Hallway Two",
+    "id": 10
+  }]
+}
