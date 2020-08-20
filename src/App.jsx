@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Search from "./components/Search";
-import SortButton from "./components/SortButton";
+
 import SecurityDisplay from "./components/SecurityDisplay";
 import devices from "./data/sample-devices.json";
 import status from "./data/sample-status.json";
 import "./App.css";
+import useSortButton from "./components/useSortButton";
 
 function App() {
   let renameProperty = JSON.stringify(status.status).replace(
@@ -32,16 +33,20 @@ function App() {
 
   const [value, setValue] = useState("");
 
-  const filterData = mergeData.filter(dVices => {
-    return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
-  });
+  const filterData = mergeData
+    .filter(dVices => {
+      return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
+    })
+    .sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+  const [data, setData] = useState(filterData);
 
   return (
     <div>
       <Search setValue={setValue} />
-      <SortButton />
 
-      {filterData.map((devices, id) => (
+      {data.map((devices, id) => (
         <SecurityDisplay key={id} devices={devices} />
       ))}
     </div>
