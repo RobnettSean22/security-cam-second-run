@@ -5,7 +5,6 @@ import SecurityDisplay from "./components/SecurityDisplay";
 import devices from "./data/sample-devices.json";
 import status from "./data/sample-status.json";
 import "./App.css";
-import useSortButton from "./components/SortButton";
 
 function App() {
   let renameProperty = JSON.stringify(status.status).replace(
@@ -34,19 +33,17 @@ function App() {
   const [value, setValue] = useState("");
 
   const filterData = mergeData
-    .filter(dVices => {
-      return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
-    })
     .sort((a, b) => {
       return a.name.localeCompare(b.name);
+    })
+    .filter(dVices => {
+      return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
     });
-
-  const [data, setData] = useState(filterData);
-
+  // const [data, setData] = useState(filterData);
   return (
     <div>
-      <Search setValue={setValue} />
-      <SortButton setData={setData} />
+      <Search setValue={setValue} value={value} />
+      <SortButton filterData={filterData} />
       {filterData.map((devices, id) => (
         <SecurityDisplay key={id} devices={devices} />
       ))}

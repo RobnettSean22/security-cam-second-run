@@ -1,6 +1,7 @@
 import React from "react";
 
-function Search({ setValue }) {
+function Search({ setValue, value }) {
+  console.log(value);
   return (
     <div>
       <input onChange={e => setValue(e.target.value)} />
