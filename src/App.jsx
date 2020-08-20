@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Search from "./components/Search";
 import SortButton from "./components/SortButton";
 import SecurityDisplay from "./components/SecurityDisplay";
@@ -30,13 +30,20 @@ function App() {
       .values()
   ];
 
-  console.log(mergeData);
+  const [value, setValue] = useState("");
+
+  const filterData = mergeData.filter(dVices => {
+    return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
+  });
 
   return (
     <div>
-      <Search />
+      <Search setValue={setValue} />
       <SortButton />
-      <SecurityDisplay />
+
+      {filterData.map((devices, id) => (
+        <SecurityDisplay key={id} devices={devices} />
+      ))}
     </div>
   );
 }
