@@ -7,6 +7,7 @@ import status from "./data/sample-status.json";
 import "./App.css";
 
 function App() {
+  const [byStatus, setByStatus] = useState(1);
   let renameProperty = JSON.stringify(status.status).replace(
     /"deviceId":/g,
     '"id":'
@@ -20,8 +21,9 @@ function App() {
       .reduce(
         (m, arr) => (
           arr.forEach(
-            o =>
-              (m.has(o.id) && Object.assign(m.get(o.id), o)) || m.set(o.id, o)
+            obj =>
+              (m.has(obj.id) && Object.assign(m.get(obj.id), obj)) ||
+              m.set(obj.id, obj)
           ),
           m
         ),
@@ -39,14 +41,23 @@ function App() {
     .filter(dVices => {
       return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
     });
-  // const [data, setData] = useState(filterData);
+  const sorted = () => {
+    const sort =
+      byStatus === 0
+        ? filterData
+        : filterData.sort((a, b) => b.active - a.active);
+    return sort;
+  };
+
   return (
     <div>
       <Search setValue={setValue} value={value} />
       <SortButton filterData={filterData} />
-      {filterData.map((devices, id) => (
-        <SecurityDisplay key={id} devices={devices} />
-      ))}
+      <div>
+        {sorted().map((devices, id) => (
+          <SecurityDisplay key={id} devices={devices} />
+        ))}
+      </div>
     </div>
   );
 }
