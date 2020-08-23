@@ -16,8 +16,15 @@ const Wrapper = styled.div`
   align-items: center;
   header {
     width: 100%;
-    height: 15%;
-    background: blue;
+    height: 10%;
+    background-image: linear-gradient(to right, #a2dda7, #3fcaab);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 58px;
+      height: 50px;
+    }
   }
 
   .search-container {
@@ -26,10 +33,16 @@ const Wrapper = styled.div`
   }
 `;
 const Cameras = styled.div`
-  width: 80%;
-  height: 75%;
+  width: 55%;
+  height: 67%;
+  overflow-y: auto;
   align-self: center;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 29%;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-content: center;
 `;
 function App() {
   const [byStatus, setByStatus] = useState(0);
@@ -58,7 +71,7 @@ function App() {
       .values()
   ];
 
-  const sortData = () => {
+  let sortData = () => {
     mergeData.sort((a, b) => {
       return a.name.localeCompare(b.name);
     });
@@ -70,21 +83,39 @@ function App() {
       return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
     });
   };
-
+  const activeData = sortData().filter(online => {
+    return online.active === true;
+  });
+  const inactiveData = sortData().filter(online => {
+    return online.active === false;
+  });
+  console.log(1111, activeData);
+  console.log(2222, inactiveData);
   return (
     <Wrapper>
       <header>
         <img src={logo} alt='' style={{ width: "100px", height: "100px" }} />
       </header>
+      <div className='title'>
+        <h3>Camers</h3>
+        <h5>Total Devices: {mergeData.length}</h5>
+      </div>
       <div className='search-container'>
         <Search setValue={setValue} value={value} />
         <SortButton setByStatus={setByStatus} />
       </div>
-      <Cameras>
-        {sortData().map((devices, id) => (
-          <SecurityDisplay key={id} devices={devices} />
-        ))}
-      </Cameras>
+      {byStatus === 0 ? (
+        <Cameras>
+          {sortData().map((devices, id) => (
+            <SecurityDisplay key={id} devices={devices} />
+          ))}
+        </Cameras>
+      ) : (
+        <div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
     </Wrapper>
   );
 }
