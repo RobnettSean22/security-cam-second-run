@@ -4,8 +4,33 @@ import SortButton from "./components/SortButton";
 import SecurityDisplay from "./components/SecurityDisplay";
 import devices from "./data/sample-devices.json";
 import status from "./data/sample-status.json";
-import "./App.css";
+import styled from "styled-components";
+import logo from "./assets/Logo.svg";
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  header {
+    width: 100%;
+    height: 15%;
+    background: blue;
+  }
+
+  .search-container {
+    width: 100%;
+    height: 5%;
+  }
+`;
+const Cameras = styled.div`
+  width: 80%;
+  height: 75%;
+  align-self: center;
+  display: grid;
+`;
 function App() {
   const [byStatus, setByStatus] = useState(0);
   const [value, setValue] = useState("");
@@ -47,15 +72,20 @@ function App() {
   };
 
   return (
-    <div>
-      <Search setValue={setValue} value={value} />
-      <SortButton setByStatus={setByStatus} />
-      <div>
+    <Wrapper>
+      <header>
+        <img src={logo} alt='' style={{ width: "100px", height: "100px" }} />
+      </header>
+      <div className='search-container'>
+        <Search setValue={setValue} value={value} />
+        <SortButton setByStatus={setByStatus} />
+      </div>
+      <Cameras>
         {sortData().map((devices, id) => (
           <SecurityDisplay key={id} devices={devices} />
         ))}
-      </div>
-    </div>
+      </Cameras>
+    </Wrapper>
   );
 }
 
