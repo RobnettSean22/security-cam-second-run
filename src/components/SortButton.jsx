@@ -3,6 +3,7 @@ import sorting from "../assets/Sorting.svg";
 
 function SortButton({ setByStatus }) {
   const [nav, setNav] = useState(false);
+
   return (
     <div>
       <div onClick={e => setNav(true)}>

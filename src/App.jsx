@@ -22,19 +22,25 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
   }
-
-  .search-container {
-    width: 100%;
-    height: 5%;
-  }
 `;
+
 const Info = styled.div`
-  width: 100%;
+  width: 60%;
   height: 5%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  h3 {
+    margin: 0;
+  }
+  h5 {
+    margin: 0;
+  }
+`;
+const SearchContainer = styled.div`
+  width: 60%;
+  height: 5%;
 `;
 const Cameras = styled.div`
   width: 60%;
@@ -43,9 +49,9 @@ const Cameras = styled.div`
   align-self: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 29%;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-auto-rows: 25%;
+  grid-column-gap: 30px;
+  grid-row-gap: 25px;
   justify-content: center;
 `;
 const StatusView = styled.div`
@@ -133,18 +139,12 @@ function App() {
         <img src={logo} alt='' style={{ width: "3%", height: "33%" }} />
       </header>
       <Info>
-        <div>
-          <h3>Camers</h3>
-        </div>
-        <div>
-          {" "}
-          <h5>Total Devices: {mergeData.length}</h5>
-        </div>
+        <h3>Camers</h3> <h5>Total Devices: {mergeData.length}</h5>
       </Info>
-      <div className='search-container'>
+      <SearchContainer>
         <Search setValue={setValue} value={value} />
         <SortButton setByStatus={setByStatus} />
-      </div>
+      </SearchContainer>
       {byStatus === 0 ? (
         <Cameras>
           {sortData().map((devices, id) => (

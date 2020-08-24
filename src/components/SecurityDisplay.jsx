@@ -73,6 +73,12 @@ const CameraBlocks = styled.div`
   }
 `;
 function SecurityDisplay({ devices, id }) {
+  const getRepContents = devices.name.substring(14);
+  const shortName =
+    devices.name.length >= 14
+      ? devices.name.replace(getRepContents, "...")
+      : devices.name;
+
   return (
     <CameraBlocks key={devices.id}>
       <div className='pic-capsule'>
@@ -81,7 +87,7 @@ function SecurityDisplay({ devices, id }) {
       <div className='status-n-name'>
         <div className={devices.active ? "active" : "inactive"}>
           <h3>{devices.active ? "Active" : "Inactive"}</h3>
-          <h1>{devices.name}</h1>
+          <h1>{shortName}</h1>
         </div>
       </div>
     </CameraBlocks>
