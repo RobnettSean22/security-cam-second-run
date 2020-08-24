@@ -21,10 +21,6 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    img {
-      width: 58px;
-      height: 50px;
-    }
   }
 
   .search-container {
@@ -32,11 +28,48 @@ const Wrapper = styled.div`
     height: 5%;
   }
 `;
+const Info = styled.div`
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+`;
 const Cameras = styled.div`
-  width: 55%;
-  height: 67%;
+  width: 60%;
+  height: 75%;
   overflow-y: auto;
   align-self: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 29%;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-content: center;
+`;
+const StatusView = styled.div`
+  width: 60%;
+  height: 75%;
+  overflow-y: auto;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const Active = styled.div`
+  width: 100%;
+  height: 45%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 29%;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-content: center;
+`;
+const Inactive = styled.div`
+  width: 100%;
+  height: 45%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 29%;
@@ -80,7 +113,10 @@ function App() {
         ? mergeData
         : mergeData.sort((a, b) => b.active - a.active);
     return sort.filter(dVices => {
-      return dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1;
+      return (
+        dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
+        dVices.id.toString().indexOf(value) !== -1
+      );
     });
   };
   const activeData = sortData().filter(online => {
@@ -94,12 +130,17 @@ function App() {
   return (
     <Wrapper>
       <header>
-        <img src={logo} alt='' style={{ width: "100px", height: "100px" }} />
+        <img src={logo} alt='' style={{ width: "3%", height: "33%" }} />
       </header>
-      <div className='title'>
-        <h3>Camers</h3>
-        <h5>Total Devices: {mergeData.length}</h5>
-      </div>
+      <Info>
+        <div>
+          <h3>Camers</h3>
+        </div>
+        <div>
+          {" "}
+          <h5>Total Devices: {mergeData.length}</h5>
+        </div>
+      </Info>
       <div className='search-container'>
         <Search setValue={setValue} value={value} />
         <SortButton setByStatus={setByStatus} />
@@ -111,10 +152,18 @@ function App() {
           ))}
         </Cameras>
       ) : (
-        <div>
-          <div></div>
-          <div></div>
-        </div>
+        <StatusView>
+          <Active>
+            {activeData.map((devices, id) => (
+              <SecurityDisplay key={id} devices={devices} />
+            ))}
+          </Active>
+          <Inactive>
+            {inactiveData.map((devices, id) => (
+              <SecurityDisplay key={id} devices={devices} />
+            ))}
+          </Inactive>
+        </StatusView>
       )}
     </Wrapper>
   );
