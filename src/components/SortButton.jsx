@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import sorting from "../assets/Sorting.svg";
+import styled from "styled-components";
+
+const Button = styled.div`
+  width: 15%;
+  height: 90%;
+`;
 
 function SortButton({ setByStatus }) {
   const [nav, setNav] = useState(false);
 
   return (
-    <div>
-      <div onClick={e => setNav(true)}>
-        <img src={sorting} alt='' />
-        Sort by
-      </div>
+    <Button onClick={e => setNav(true)}>
+      <img src={sorting} alt='' />
+      Sort by
       {nav ? (
         <div style={{ width: "100px", height: "100px" }}>
           <div
@@ -30,7 +34,7 @@ function SortButton({ setByStatus }) {
           </div>
         </div>
       ) : null}
-    </div>
+    </Button>
   );
 }
 

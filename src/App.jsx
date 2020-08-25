@@ -25,13 +25,15 @@ const Wrapper = styled.div`
 `;
 
 const Info = styled.div`
-  width: 60%;
+  width: 42%;
   height: 5%;
   display: flex;
+  margin-top: 1%;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   h3 {
+    font-size: 16px;
     margin: 0;
   }
   h5 {
@@ -39,19 +41,36 @@ const Info = styled.div`
   }
 `;
 const SearchContainer = styled.div`
-  width: 60%;
+  width: 42%;
   height: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  margin-top: 0.5%;
+
+  &:after {
+    opacity: 0.5;
+  }
+
+  &:focus {
+    outline: none;
+    background-image: none;
+  }
+  &:focus::placeholder {
+    color: transparent;
+  }
 `;
 const Cameras = styled.div`
-  width: 60%;
+  width: 42%;
   height: 75%;
   overflow-y: auto;
   align-self: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 25%;
-  grid-column-gap: 30px;
-  grid-row-gap: 25px;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
   justify-content: center;
 `;
 const StatusView = styled.div`
@@ -136,10 +155,15 @@ function App() {
   return (
     <Wrapper>
       <header>
-        <img src={logo} alt='' style={{ width: "3%", height: "33%" }} />
+        <img
+          placeholder='Search by Name or I...'
+          src={logo}
+          alt=''
+          style={{ width: "3%", height: "33%" }}
+        />
       </header>
       <Info>
-        <h3>Camers</h3> <h5>Total Devices: {mergeData.length}</h5>
+        <h3>Your Cameras</h3> <h5>Total Devices: {mergeData.length}</h5>
       </Info>
       <SearchContainer>
         <Search setValue={setValue} value={value} />
