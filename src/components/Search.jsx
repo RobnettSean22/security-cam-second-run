@@ -4,17 +4,17 @@ import styled from "styled-components";
 const SearchInput = styled.div`
   width: 63%;
   height: 50%;
-
+  margin-left: 0.5%;
   input {
     width: 42%;
-    height: 56%;
+    height: 100%;
     background-image: url(${search});
     background-repeat: no-repeat;
     background-position: left;
     background-size: 20px;
     padding-left: 2.3%;
-
     font-size: 14px;
+
     &:after {
       opacity: 0.5;
     }

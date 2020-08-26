@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   align-items: center;
   header {
     width: 100%;
-    height: 10%;
+    height: 7%;
     background-image: linear-gradient(to right, #a2dda7, #3fcaab);
     display: flex;
     justify-content: center;
@@ -42,7 +42,7 @@ const Info = styled.div`
 `;
 const SearchContainer = styled.div`
   width: 42%;
-  height: 5%;
+  height: 3%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -159,7 +159,7 @@ function App() {
           placeholder='Search by Name or I...'
           src={logo}
           alt=''
-          style={{ width: "3%", height: "33%" }}
+          style={{ width: "20%", height: "35%" }}
         />
       </header>
       <Info>
@@ -167,7 +167,7 @@ function App() {
       </Info>
       <SearchContainer>
         <Search setValue={setValue} value={value} />
-        <SortButton setByStatus={setByStatus} />
+        <SortButton setByStatus={setByStatus} byStatus={byStatus} />
       </SearchContainer>
       {byStatus === 0 ? (
         <Cameras>
