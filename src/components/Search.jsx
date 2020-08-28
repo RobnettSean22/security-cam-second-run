@@ -10,14 +10,27 @@ const SearchInput = styled.div`
     height: 70%;
     background-image: url(${search});
     background-repeat: no-repeat;
-    background-position: left;
-    background-size: 20px;
+    background-position: 3% 50%;
+    background-size: 6%;
     padding-left: 2.3%;
-    font-size: 14px;
-    border-radius: 5px;
+    font-size: 10px;
+    color: #888888;
+    font-family: "Open Sans", sans-serif;
+    font-style: italic;
+    border: 1px #bfd1cb solid;
+    border-radius: 2px;
+    text-indent: 7%;
 
-    &::after {
+    &:after {
       opacity: 0.5;
+    }
+
+    &:focus {
+      outline: none;
+      background-image: none;
+    }
+    &:focus::placeholder {
+      color: transparent;
     }
   }
 `;
@@ -26,7 +39,7 @@ function Search({ setValue, value }) {
   return (
     <SearchInput>
       <input
-        placeholder='Search by Name or ID'
+        placeholder='Search by Name or ID...'
         onChange={e => setValue(e.target.value)}
       />
     </SearchInput>

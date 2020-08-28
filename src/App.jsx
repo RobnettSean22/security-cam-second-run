@@ -32,11 +32,15 @@ const Info = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  h3 {
-    font-size: 16px;
+  h1 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    font-size: 15px;
     margin: 0;
   }
   h5 {
+    font-family: "Open Sans", sans-serif;
+    font-style: italic;
     opacity: 0.5;
     padding-top: 1%;
     font-size: 8px;
@@ -51,18 +55,6 @@ const SearchContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   margin-top: 0.5%;
-
-  &:after {
-    opacity: 0.5;
-  }
-
-  &:focus {
-    outline: none;
-    background-image: none;
-  }
-  &:focus::placeholder {
-    color: transparent;
-  }
 `;
 const Title = styled.div`
   width: 42%;
@@ -73,6 +65,9 @@ const Title = styled.div`
   justify-content: flex-start;
   align-items: flex-end;
   h3 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    color: #181616;
     margin: 0;
   }
 `;
@@ -81,6 +76,9 @@ const InactiveTitle = styled.div`
   width: 42%;
   height: 6%;
   font-size: 8px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  color: #181616;
   padding-left: 2%;
   display: flex;
   justify-content: flex-start;
@@ -131,7 +129,7 @@ const Inactive = styled.div`
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-content: center;
-  overflow: hiden;
+  overflow: none;
   h3 {
     margin: 0;
   }
@@ -197,19 +195,25 @@ function App() {
         />
       </header>
       <Info>
-        <h3>Your Cameras</h3> <h5>Total Devices: {mergeData.length}</h5>
+        <h1>Your Cameras</h1> <h5>Total Devices: {mergeData.length}</h5>
       </Info>
       <SearchContainer>
         <Search setValue={setValue} value={value} />
         <SortButton setByStatus={setByStatus} byStatus={byStatus} />
       </SearchContainer>
-      <Title>
-        <h3>
-          {byStatus === 0
-            ? `All Devices(${sortData().length})`
-            : `Active Cameras (${activeData.length})`}
-        </h3>
-      </Title>
+
+      {byStatus === 0 ? (
+        <Title>
+          <h3>All Devices</h3>
+          <h5>({sortData().length})</h5>{" "}
+        </Title>
+      ) : (
+        <Title>
+          <h3>Active Cameras</h3>
+          <h5>({activeData.length})</h5>
+        </Title>
+      )}
+
       {byStatus === 0 ? (
         <Cameras>
           {sortData().map((devices, id) => (
@@ -224,7 +228,8 @@ function App() {
             ))}
           </Active>
           <InactiveTitle>
-            <h3>Inactive Cameras ({inactiveData.length})</h3>
+            <h3>Inactive Cameras</h3>
+            <h5>({inactiveData.length})</h5>
           </InactiveTitle>
           <Inactive>
             {inactiveData.map((devices, id) => (

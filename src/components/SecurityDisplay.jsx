@@ -39,7 +39,11 @@ const CameraName = styled.div`
       opacity: 0.5;
     }
     h1 {
-      font-size: 12px;
+      font-size: 10px;
+      font-family: "Lato", sans-serif;
+      font-weight: 600;
+      color: #2b4039;
+      letter-spacing: 1px;
       margin: 0 0 0 2px;
     }
   }
@@ -56,9 +60,15 @@ const CameraName = styled.div`
     h3 {
       margin: 0 0 0 2px;
       font-size: 10px;
+
       opacity: 0.5;
     }
     h1 {
+      font-size: 12px;
+      font-family: "Lato", sans-serif;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #2b4039;
       margin: 0 0 0 2px;
       font-size: 12px;
     }

@@ -14,7 +14,7 @@ const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px #c3c4c5 solid;
   border-radius: 4px;
   &:hover {
     cursor: pointer;
