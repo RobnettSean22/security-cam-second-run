@@ -129,7 +129,7 @@ const Cameras = styled.div`
   align-self: center;
   display: grid;
   grid-template-columns: repeat(3, 30%);
-  grid-auto-rows: repeat(3, 25%);
+  grid-auto-rows: 25%;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-content: center;
@@ -150,7 +150,7 @@ const Active = styled.div`
   display: grid;
   display: grid;
   grid-template-columns: repeat(3, 30%);
-  grid-auto-rows: repeat(3, 25%);
+  grid-auto-rows: 48%;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-content: center;
@@ -162,7 +162,7 @@ const Inactive = styled.div`
   display: grid;
   display: grid;
   grid-template-columns: repeat(3, 30%);
-  grid-auto-rows: repeat(3, 25%);
+  grid-auto-rows: 48%;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-content: center;

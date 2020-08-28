@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const CameraBlocks = styled.div`
@@ -89,9 +89,9 @@ const ImgContainer = styled.div`
   }
 `;
 function SecurityDisplay({ devices, id }) {
-  const getRepContents = devices.name.substring(14);
+  const getRepContents = devices.name.substring(15);
   const shortName =
-    devices.name.length >= 14
+    devices.name.length > 15
       ? devices.name.replace(getRepContents, "...")
       : devices.name;
 
