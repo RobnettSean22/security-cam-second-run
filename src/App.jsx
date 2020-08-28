@@ -83,7 +83,8 @@ const Title = styled.div`
     opacity: 0.5;
   }
   hr {
-    width: 79%;
+    width: 78%;
+    margin-left: 4%;
     margin-bottom: 0.5%;
     opacity: 0.5;
   }
@@ -173,6 +174,7 @@ const Inactive = styled.div`
 function App() {
   const [byStatus, setByStatus] = useState(0);
   const [value, setValue] = useState("");
+
   let renameProperty = JSON.stringify(status.status).replace(
     /"deviceId":/g,
     '"id":'

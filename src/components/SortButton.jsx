@@ -28,22 +28,25 @@ const Button = styled.div`
     margin: 0;
     align-self: flex-start;
     font-size: 10px;
+    color: #3b4651;
   }
 `;
 const Navigation = styled.div`
-  width: 7.4%;
+  width: 7.2%;
   height: 6%;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  top: 17.3%;
-  right: 30%;
+  border-left: 1px solid #c3c4c5;
+  border-right: 1px solid #c3c4c5;
+  top: 17.2%;
+  right: 30.42%;
   position: absolute;
   display: flex;
   flex-direction: column;
+  z-index: 1;
+  background: #fff;
   div {
     width: 100%;
     height: 49%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #c3c4c5;
     display: flex;
     align-items: center;
     justify-content: center;
