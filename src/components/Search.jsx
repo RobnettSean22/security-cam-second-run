@@ -3,29 +3,21 @@ import search from "../assets/Search.svg";
 import styled from "styled-components";
 const SearchInput = styled.div`
   width: 63%;
-  height: 50%;
+  height: 100%;
   margin-left: 0.5%;
   input {
     width: 42%;
-    height: 100%;
+    height: 70%;
     background-image: url(${search});
     background-repeat: no-repeat;
     background-position: left;
     background-size: 20px;
     padding-left: 2.3%;
     font-size: 14px;
-
-    &:after {
-      opacity: 0.5;
-    }
-
     border-radius: 5px;
-    &:focus {
-      outline: none;
-      background-image: none;
-    }
-    &:focus::placeholder {
-      color: transparent;
+
+    &::after {
+      opacity: 0.5;
     }
   }
 `;
@@ -33,7 +25,10 @@ const SearchInput = styled.div`
 function Search({ setValue, value }) {
   return (
     <SearchInput>
-      <input onChange={e => setValue(e.target.value)} />
+      <input
+        placeholder='Search by Name or ID'
+        onChange={e => setValue(e.target.value)}
+      />
     </SearchInput>
   );
 }

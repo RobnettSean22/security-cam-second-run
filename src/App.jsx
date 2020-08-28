@@ -37,6 +37,9 @@ const Info = styled.div`
     margin: 0;
   }
   h5 {
+    opacity: 0.5;
+    padding-top: 1%;
+    font-size: 8px;
     margin: 0;
   }
 `;
@@ -61,21 +64,45 @@ const SearchContainer = styled.div`
     color: transparent;
   }
 `;
+const Title = styled.div`
+  width: 42%;
+  height: 5%;
+  font-size: 8px;
+  padding-left: 2%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  h3 {
+    margin: 0;
+  }
+`;
+
+const InactiveTitle = styled.div`
+  width: 42%;
+  height: 6%;
+  font-size: 8px;
+  padding-left: 2%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+`;
 const Cameras = styled.div`
   width: 42%;
-  height: 75%;
+  height: 76%;
+  padding-top: 1.2%;
   overflow-y: auto;
   align-self: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 25%;
+  grid-template-columns: repeat(3, 30%);
+  grid-auto-rows: repeat(3, 25%);
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-content: center;
 `;
 const StatusView = styled.div`
-  width: 60%;
+  width: 42%;
   height: 75%;
+  padding-top: 1.2%;
   overflow-y: auto;
   align-self: center;
   display: flex;
@@ -84,23 +111,30 @@ const StatusView = styled.div`
 `;
 const Active = styled.div`
   width: 100%;
-  height: 45%;
+  height: 48%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 29%;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-auto-rows: repeat(3, 25%);
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-content: center;
+  overflow: none;
 `;
 const Inactive = styled.div`
   width: 100%;
-  height: 45%;
+  height: 48%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 29%;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-auto-rows: repeat(3, 25%);
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   justify-content: center;
+  overflow: hiden;
+  h3 {
+    margin: 0;
+  }
 `;
 function App() {
   const [byStatus, setByStatus] = useState(0);
@@ -169,6 +203,13 @@ function App() {
         <Search setValue={setValue} value={value} />
         <SortButton setByStatus={setByStatus} byStatus={byStatus} />
       </SearchContainer>
+      <Title>
+        <h3>
+          {byStatus === 0
+            ? `All Devices(${sortData().length})`
+            : `Active Cameras (${activeData.length})`}
+        </h3>
+      </Title>
       {byStatus === 0 ? (
         <Cameras>
           {sortData().map((devices, id) => (
@@ -182,6 +223,9 @@ function App() {
               <SecurityDisplay key={id} devices={devices} />
             ))}
           </Active>
+          <InactiveTitle>
+            <h3>Inactive Cameras ({inactiveData.length})</h3>
+          </InactiveTitle>
           <Inactive>
             {inactiveData.map((devices, id) => (
               <SecurityDisplay key={id} devices={devices} />
