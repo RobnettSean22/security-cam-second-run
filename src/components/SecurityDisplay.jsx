@@ -34,7 +34,10 @@ const CameraName = styled.div`
     border-radius: 4px;
 
     h3 {
-      font-size: 10px;
+      font-family: "Lato", sans-serif;
+      font-style: 600;
+      font-size: 8px;
+      letter-spacing: 1px;
       margin: 0 0 0 2px;
       opacity: 0.5;
     }
@@ -59,8 +62,10 @@ const CameraName = styled.div`
 
     h3 {
       margin: 0 0 0 2px;
-      font-size: 10px;
-
+      font-size: 8px;
+      font-family: "Lato", sans-serif;
+      letter-spacing: 1px;
+      font-style: 600;
       opacity: 0.5;
     }
     h1 {

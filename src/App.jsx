@@ -25,10 +25,11 @@ const Wrapper = styled.div`
 `;
 
 const Info = styled.div`
-  width: 42%;
+  width: 40.5%;
   height: 5%;
   display: flex;
   margin-top: 1%;
+
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -48,7 +49,7 @@ const Info = styled.div`
   }
 `;
 const SearchContainer = styled.div`
-  width: 42%;
+  width: 41%;
   height: 3%;
   display: flex;
   justify-content: space-between;
@@ -57,10 +58,9 @@ const SearchContainer = styled.div`
   margin-top: 0.5%;
 `;
 const Title = styled.div`
-  width: 42%;
+  width: 40%;
   height: 5%;
-  font-size: 8px;
-  padding-left: 2%;
+  margin-bottom: 20px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
@@ -68,21 +68,57 @@ const Title = styled.div`
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
     color: #181616;
+    opacity: 0.5;
     margin: 0;
+    font-size: 9px;
+  }
+  h5 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    color: #181616;
+    margin: 0;
+    padding-left: 1%;
+    margin-bottom: 0.2%;
+    font-size: 9px;
+    opacity: 0.5;
+  }
+  hr {
+    width: 79%;
+    margin-bottom: 0.5%;
+    opacity: 0.5;
   }
 `;
 
 const InactiveTitle = styled.div`
-  width: 42%;
+  width: 97%;
   height: 6%;
-  font-size: 8px;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 600;
-  color: #181616;
-  padding-left: 2%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+  margin: 27px 0px 21px 14px;
+  h3 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    color: #181616;
+    margin: 0;
+    font-size: 9px;
+    opacity: 0.5;
+  }
+  h5 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    color: #181616;
+    margin: 0;
+    padding-left: 1%;
+    margin-bottom: 0.2%;
+    font-size: 9px;
+    opacity: 0.5;
+  }
+  hr {
+    width: 79%;
+    margin-bottom: 0.5%;
+    opacity: 0.5;
+  }
 `;
 const Cameras = styled.div`
   width: 42%;
@@ -205,12 +241,13 @@ function App() {
       {byStatus === 0 ? (
         <Title>
           <h3>All Devices</h3>
-          <h5>({sortData().length})</h5>{" "}
+          <h5>({sortData().length})</h5> <hr></hr>
         </Title>
       ) : (
         <Title>
           <h3>Active Cameras</h3>
           <h5>({activeData.length})</h5>
+          <hr></hr>
         </Title>
       )}
 
@@ -230,6 +267,7 @@ function App() {
           <InactiveTitle>
             <h3>Inactive Cameras</h3>
             <h5>({inactiveData.length})</h5>
+            <hr></hr>
           </InactiveTitle>
           <Inactive>
             {inactiveData.map((devices, id) => (
