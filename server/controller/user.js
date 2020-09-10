@@ -5,7 +5,7 @@ module.exports = {
   register: async (req, res) => {
     const { username, password, phone_number } = req.body;
     const foundUser = await userData.filter(inUse => {
-      return inUse.username.match(username) ? username : null;
+      return inUse.username === username ? username : null;
     });
 
     if (foundUser.length) {
@@ -16,12 +16,30 @@ module.exports = {
       const hashedPassword = await bcrypt.hash(password, salt);
       userData.push({
         username,
-        hashedPassword,
+        password: hashedPassword,
         phone_number
       });
       index++;
     }
 
     res.status(200).send(userData);
+  },
+
+  login: async (req, res) => {
+    const { username, password } = req.body;
+    const [foundUser] = await userData.filter(inUse => {
+      return inUse.username === username ? username : null;
+    });
+    if (!foundUser) {
+      res.status(400).send("username does not match");
+    } else {
+      const authenticated = bcrypt.compare(password, foundUser.password);
+
+      if (authenticated) {
+        res.status(200).send(foundUser);
+      } else {
+        res.status(400).send("password does not match");
+      }
+    }
   }
 };
