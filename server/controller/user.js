@@ -33,8 +33,8 @@ module.exports = {
     if (!foundUser) {
       res.status(400).send("username does not match");
     } else {
-      const authenticated = bcrypt.compare(password, foundUser.password);
-
+      const authenticated = bcrypt.compareSync(password, foundUser.password);
+      console.log(authenticated);
       if (authenticated) {
         res.status(200).send(foundUser);
       } else {
