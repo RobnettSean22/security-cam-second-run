@@ -1,8 +1,7 @@
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 const userData = require("../../src/data/user.json");
 const Speakeasy = require("speakeasy");
-const Base64 = require("crypto-js/enc-base64");
-const Utf8 = require("crypto-js/enc-utf8");
 
 let genSecret;
 let index = 0;
