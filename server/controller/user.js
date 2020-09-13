@@ -1,10 +1,26 @@
+require("dotenv").config();
 const bcrypt = require("bcrypt");
+const { EMAIL, PASSWORD, APIKEY, APISECRET } = process.env;
 const nodemailer = require("nodemailer");
+const Nexmo = require("nexmo");
 const userData = require("../../src/data/user.json");
 const Speakeasy = require("speakeasy");
 
 let genSecret;
+let token;
 let index = 0;
+const genToken = () => {
+  const secret = Speakeasy.generateSecret().ascii;
+  console.log(secret);
+  genSecret = "robnettsean@gmail.com" + secret;
+
+  token = Speakeasy.totp({
+    secret: genSecret,
+
+    algorithm: "sha512",
+    digits: 6
+  });
+};
 module.exports = {
   register: async (req, res) => {
     const { email, password, phone_number } = req.body;
@@ -47,7 +63,7 @@ module.exports = {
     }
   },
 
-  createToken: async (req, res) => {
+  verifyEmail: async (req, res) => {
     const { email } = req.body;
     const [foundUser] = await userData.filter(inUse => {
       return inUse.email === email ? email : null;
@@ -55,20 +71,51 @@ module.exports = {
     if (!foundUser) {
       res.status(400).send("user with this account does not exist");
     }
-    const secret = Speakeasy.generateSecret().ascii;
-    console.log(secret);
-    const sharedSecret = "robnettsean@gmail.com" + secret;
-
-    const token = Speakeasy.totp({
-      secret: sharedSecret,
-
-      algorithm: "sha512",
-      digits: 6
+    res.status(200).send("email matches");
+  },
+  sendEmail: async (req, res) => {
+    const { email } = req.body;
+    genToken();
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: EMAIL,
+        pass: PASSWORD
+      }
     });
 
-    genSecret = sharedSecret;
+    await transporter.sendMail({
+      from: "test@test.com",
+      to: email,
+      subject: "Temparay password",
+      text: "Hello",
+      html: `<body>
+         
+         <ul style='list-style: none; padding: 0px; font-size: 18px; color: #333, font-family: san-serif'>
+             <li><h3>Hi, ${email}</h3></li>
+             <li><h3>${token}</h3></li>
+            
+         </ul>
+         <body>`
+    });
     console.log(token);
-    res.status(200).send(foundUser);
+    res.status(200).send("email was sent");
+  },
+  sendSMS: async (req, res) => {
+    const { phone_number } = req.body;
+    genToken();
+    const nexmo = new Nexmo({
+      apiKey: APIKEY,
+      apiSecret: APISECRET
+    });
+
+    const from = "Vonage APIs";
+    const to = phone_number;
+    const text = token;
+
+    nexmo.message.sendSms(from, to, text);
+    console.log(token);
+    res.status(200).send("text was sent");
   },
 
   alternateLogin: async (req, res) => {
@@ -79,10 +126,6 @@ module.exports = {
     if (!foundUser) {
       res.status(400).send("username does not match");
     } else {
-      const secret = Speakeasy.generateSecret().ascii;
-      console.log(secret);
-      console.log(digitCode);
-      console.log(genSecret);
       const authenticated = Speakeasy.totp.verify({
         secret: genSecret,
 
