@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const session = require("express-session");
 const {
   register,
   login,
@@ -12,6 +13,9 @@ const {
 const port = 5000;
 
 app.use(express.json());
+app.use(
+  session({ secret: "dfsdfsfonsl", resave: false, saveUninitialized: false })
+);
 
 app.post("/reg/", register);
 app.post("/login/", login);
