@@ -4,6 +4,8 @@ const { EMAIL, PASSWORD, APIKEY, APISECRET } = process.env;
 const nodemailer = require("nodemailer");
 const Nexmo = require("nexmo");
 const userData = require("../../data/user.json");
+const devices = require("../../data/sample-devices.json");
+const status = require("../../data/sample-status.json");
 const Speakeasy = require("speakeasy");
 
 let genSecret;
@@ -150,5 +152,33 @@ module.exports = {
     let i = await userData.findIndex(x => x.email === xUser);
     console.log(i);
     res.status(200).send(userData.splice(i, 1));
+  },
+  getData: async (req, res) => {
+    const { email } = req.params;
+    let renameProperty = JSON.stringify(status.status).replace(
+      /"deviceId":/g,
+      '"id":'
+    );
+    const cameraStatus = JSON.parse(renameProperty);
+    const nameOfDevice = devices.devices;
+
+    let mergeData = [
+      ...[cameraStatus, nameOfDevice]
+        .reduce(
+          (m, arr) => (
+            arr.forEach(
+              obj =>
+                (m.has(obj.id) && Object.assign(m.get(obj.id), obj)) ||
+                m.set(obj.id, obj)
+            ),
+            m
+          ),
+          new Map()
+        )
+        .values()
+    ];
+    userData.findIndex(x => x.email === email) === 0
+      ? res.status(200).send(mergeData)
+      : res.status(400).send("not logged in");
   }
 };

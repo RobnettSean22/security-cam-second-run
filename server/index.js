@@ -8,9 +8,9 @@ const {
   verifyEmail,
   sendEmail,
   sendSMS,
-  killSession
+  killSession,
+  getData
 } = require("./controller/user");
-const { getData } = require("./controller/devices");
 
 const port = 5000;
 
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(
   session({ secret: "dfsdfsfonsl", resave: false, saveUninitialized: false })
 );
-app.get("/getData/", getData);
+app.get("/getData/:xUser", getData);
 app.post("/reg/", register);
 app.get("/login/", login);
 app.get("/verifyEmail/", verifyEmail);
