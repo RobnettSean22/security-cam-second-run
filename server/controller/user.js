@@ -151,18 +151,18 @@ module.exports = {
     req.session.destroy();
     let i = await userData.findIndex(x => x.email === xUser);
     console.log(i);
+    xUser = null;
     res.status(200).send(userData.splice(i, 1));
   },
   getData: async (req, res) => {
-    const { email } = req.params;
-    let renameProperty = JSON.stringify(status.status).replace(
+    let renameProperty = await JSON.stringify(status.status).replace(
       /"deviceId":/g,
       '"id":'
     );
-    const cameraStatus = JSON.parse(renameProperty);
-    const nameOfDevice = devices.devices;
+    const cameraStatus = await JSON.parse(renameProperty);
+    const nameOfDevice = await devices.devices;
 
-    let mergeData = [
+    let mergeData = await [
       ...[cameraStatus, nameOfDevice]
         .reduce(
           (m, arr) => (
@@ -177,8 +177,10 @@ module.exports = {
         )
         .values()
     ];
-    userData.findIndex(x => x.email === email) === 0
-      ? res.status(200).send(mergeData)
-      : res.status(400).send("not logged in");
+    if (xUser.length) {
+      res.status(200).send(mergeData);
+    } else {
+      res.status(400).send("not logged in");
+    }
   }
 };

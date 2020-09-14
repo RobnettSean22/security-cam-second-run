@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(
   session({ secret: "dfsdfsfonsl", resave: false, saveUninitialized: false })
 );
-app.get("/getData/:xUser", getData);
+app.get("/getData/", getData);
 app.post("/reg/", register);
 app.get("/login/", login);
 app.get("/verifyEmail/", verifyEmail);
