@@ -7,7 +7,9 @@ const {
   alternateLogin,
   verifyEmail,
   sendEmail,
-  sendSMS
+  sendSMS,
+  killSession,
+  all
 } = require("./controller/user");
 
 const port = 5000;
@@ -16,13 +18,14 @@ app.use(express.json());
 app.use(
   session({ secret: "dfsdfsfonsl", resave: false, saveUninitialized: false })
 );
-
+app.get("/", all);
 app.post("/reg/", register);
-app.post("/login/", login);
-app.post("/verifyEmail/", verifyEmail);
-app.post("/altlogin/", alternateLogin);
+app.get("/login/", login);
+app.get("/verifyEmail/", verifyEmail);
+app.get("/altlogin/", alternateLogin);
 app.post("/sendEmail/", sendEmail);
 app.post("/sendSMS/", sendSMS);
+app.delete("/killSession/", killSession);
 
 app.listen(port, () => {
   console.log(`loud and clear on ${port}`);

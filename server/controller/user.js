@@ -8,6 +8,7 @@ const Speakeasy = require("speakeasy");
 
 let genSecret;
 let token;
+let xUser;
 let index = 0;
 const genToken = () => {
   const secret = Speakeasy.generateSecret().ascii;
@@ -22,6 +23,9 @@ const genToken = () => {
   });
 };
 module.exports = {
+  all: async (req, res) => {
+    res.status(200).send(userData);
+  },
   register: async (req, res) => {
     const { email, password, phone_number } = req.body;
     const foundUser = await userData.filter(inUse => {
@@ -42,7 +46,7 @@ module.exports = {
       index++;
     }
 
-    res.status(200).send(userData);
+    res.status(200).send(req.session.userData);
   },
 
   login: async (req, res) => {
@@ -56,7 +60,9 @@ module.exports = {
       const authenticated = bcrypt.compareSync(password, foundUser.password);
       console.log(authenticated);
       if (authenticated) {
-        res.status(200).send(foundUser);
+        xUser = foundUser.email;
+        console.log(foundUser);
+        res.status(200).send(req.session.foundUser);
       } else {
         res.status(400).send("password does not match");
       }
@@ -136,10 +142,16 @@ module.exports = {
       });
       console.log(authenticated);
       if (authenticated) {
-        res.status(200).send(foundUser);
+        res.status(200).send(req.session.foundUser);
       } else {
         res.status(400).send("password does not match");
       }
     }
+  },
+  killSession: async (req, res, next) => {
+    req.session.destroy();
+    let i = await userData.findIndex(x => x.email === xUser);
+    console.log(i);
+    res.status(200).send(userData.splice(i, 1));
   }
 };
