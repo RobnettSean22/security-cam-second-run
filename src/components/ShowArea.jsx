@@ -181,9 +181,8 @@ function ShowArea() {
   );
   const cameraStatus = JSON.parse(renameProperty);
   const nameOfDevice = devices.devices;
-  console.log(cameraStatus);
-  console.log(nameOfDevice);
-  var mergeData = [
+
+  let mergeData = [
     ...[cameraStatus, nameOfDevice]
       .reduce(
         (m, arr) => (
