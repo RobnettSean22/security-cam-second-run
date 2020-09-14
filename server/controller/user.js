@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { EMAIL, PASSWORD, APIKEY, APISECRET } = process.env;
 const nodemailer = require("nodemailer");
 const Nexmo = require("nexmo");
-const userData = require("../../src/data/user.json");
+const userData = require("../../data/user.json");
 const Speakeasy = require("speakeasy");
 
 let genSecret;
@@ -23,9 +23,6 @@ const genToken = () => {
   });
 };
 module.exports = {
-  all: async (req, res) => {
-    res.status(200).send(userData);
-  },
   register: async (req, res) => {
     const { email, password, phone_number } = req.body;
     const foundUser = await userData.filter(inUse => {

@@ -59,7 +59,7 @@ const Navigation = styled.div`
   }
 `;
 
-function SortButton({ setByStatus, byStatus }) {
+const SortButton = ({ setByStatus, byStatus }) => {
   const [nav, setNav] = useState(false);
 
   return (
@@ -91,6 +91,6 @@ function SortButton({ setByStatus, byStatus }) {
       ) : null}
     </SortContainer>
   );
-}
+};
 
 export default SortButton;

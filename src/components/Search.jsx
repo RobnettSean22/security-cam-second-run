@@ -35,7 +35,7 @@ const SearchInput = styled.div`
   }
 `;
 
-function Search({ setValue, value }) {
+const Search = ({ setValue, value }) => {
   return (
     <SearchInput>
       <input
@@ -44,6 +44,6 @@ function Search({ setValue, value }) {
       />
     </SearchInput>
   );
-}
+};
 
 export default Search;

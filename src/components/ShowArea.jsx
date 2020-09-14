@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Search from "../components/Search";
 import SortButton from "../components/SortButton";
 import SecurityDisplay from "../components/SecurityDisplay";
-import devices from "../data/sample-devices.json";
-import status from "../data/sample-status.json";
+// import devices from "../data/sample-devices.json";
+// import status from "../data/sample-status.json";
 import styled from "styled-components";
 import logo from "../assets/Logo.svg";
 
@@ -171,32 +171,10 @@ const Inactive = styled.div`
     margin: 0;
   }
 `;
-function ShowArea() {
+const ShowArea = () => {
   const [byStatus, setByStatus] = useState(0);
   const [value, setValue] = useState("");
-
-  let renameProperty = JSON.stringify(status.status).replace(
-    /"deviceId":/g,
-    '"id":'
-  );
-  const cameraStatus = JSON.parse(renameProperty);
-  const nameOfDevice = devices.devices;
-
-  let mergeData = [
-    ...[cameraStatus, nameOfDevice]
-      .reduce(
-        (m, arr) => (
-          arr.forEach(
-            obj =>
-              (m.has(obj.id) && Object.assign(m.get(obj.id), obj)) ||
-              m.set(obj.id, obj)
-          ),
-          m
-        ),
-        new Map()
-      )
-      .values()
-  ];
+  const [mergeData, setMergeData] = useState();
 
   let sortData = () => {
     mergeData.sort((a, b) => {
@@ -279,6 +257,6 @@ function ShowArea() {
       )}
     </Wrapper>
   );
-}
+};
 
 export default ShowArea;
