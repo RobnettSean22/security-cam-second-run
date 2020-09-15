@@ -9,7 +9,8 @@ const {
   sendEmail,
   sendSMS,
   killSession,
-  getData
+  getData,
+  all
 } = require("./controller/user");
 
 const port = 5000;
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(
   session({ secret: "dfsdfsfonsl", resave: false, saveUninitialized: false })
 );
+app.get("/all/", all);
 app.get("/getData/", getData);
 app.post("/reg/", register);
 app.get("/login/", login);

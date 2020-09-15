@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import SortButton from "../components/SortButton";
 import SecurityDisplay from "../components/SecurityDisplay";
-// import devices from "../data/sample-devices.json";
-// import status from "../data/sample-status.json";
+import axios from "axios";
 import styled from "styled-components";
 import logo from "../assets/Logo.svg";
 
@@ -175,6 +174,15 @@ const ShowArea = () => {
   const [byStatus, setByStatus] = useState(0);
   const [value, setValue] = useState("");
   const [mergeData, setMergeData] = useState();
+
+  useEffect(() => {
+    const cameraData = async () => {
+      const response = await axios.get("/getData/");
+      const data = await response.json();
+      return setByStatus(data);
+    };
+    return cameraData();
+  });
 
   let sortData = () => {
     mergeData.sort((a, b) => {

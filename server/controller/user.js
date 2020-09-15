@@ -14,7 +14,7 @@ let xUser;
 let index = 0;
 const genToken = () => {
   const secret = Speakeasy.generateSecret().ascii;
-  console.log(secret);
+
   genSecret = "robnettsean@gmail.com" + secret;
 
   token = Speakeasy.totp({
@@ -25,6 +25,9 @@ const genToken = () => {
   });
 };
 module.exports = {
+  all: async (req, res) => {
+    res.status(200).send(userData);
+  },
   register: async (req, res) => {
     const { email, password, phone_number } = req.body;
     const foundUser = await userData.filter(inUse => {
@@ -57,10 +60,10 @@ module.exports = {
       res.status(400).send("username does not match");
     } else {
       const authenticated = bcrypt.compareSync(password, foundUser.password);
-      console.log(authenticated);
+
       if (authenticated) {
         xUser = foundUser.email;
-        console.log(foundUser);
+
         res.status(200).send(req.session.foundUser);
       } else {
         res.status(400).send("password does not match");
@@ -103,7 +106,7 @@ module.exports = {
          </ul>
          <body>`
     });
-    console.log(token);
+
     res.status(200).send("email was sent");
   },
   sendSMS: async (req, res) => {
@@ -119,7 +122,7 @@ module.exports = {
     const text = token;
 
     nexmo.message.sendSms(from, to, text);
-    console.log(token);
+
     res.status(200).send("text was sent");
   },
 
@@ -139,7 +142,7 @@ module.exports = {
         algorithm: "sha512",
         digits: 6
       });
-      console.log(authenticated);
+
       if (authenticated) {
         res.status(200).send(req.session.foundUser);
       } else {
@@ -150,7 +153,7 @@ module.exports = {
   killSession: async (req, res, next) => {
     req.session.destroy();
     let i = await userData.findIndex(x => x.email === xUser);
-    console.log(i);
+
     xUser = null;
     res.status(200).send(userData.splice(i, 1));
   },
