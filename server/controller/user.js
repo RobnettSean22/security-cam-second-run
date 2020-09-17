@@ -12,6 +12,7 @@ let genSecret;
 let token;
 let xUser;
 let index = 0;
+let loggedUser;
 const genToken = () => {
   const secret = Speakeasy.generateSecret().ascii;
 
@@ -56,6 +57,7 @@ module.exports = {
     const [foundUser] = await userData.filter(inUse => {
       return inUse.email === email ? email : null;
     });
+
     if (!foundUser) {
       res.status(400).send("username does not match");
     } else {
@@ -76,6 +78,7 @@ module.exports = {
     const [foundUser] = await userData.filter(inUse => {
       return inUse.email === email ? email : null;
     });
+    loggedUser = foundUser;
     if (!foundUser) {
       res.status(400).send("user with this account does not exist");
     }
@@ -149,6 +152,9 @@ module.exports = {
         res.status(400).send("password does not match");
       }
     }
+  },
+  reggisteredUser: async (req, res) => {
+    res.status(200).send(loggedUser);
   },
   killSession: async (req, res, next) => {
     req.session.destroy();

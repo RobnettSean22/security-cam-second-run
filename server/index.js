@@ -10,7 +10,8 @@ const {
   sendSMS,
   killSession,
   getData,
-  all
+  all,
+  reggisteredUser
 } = require("./controller/user");
 
 const port = 5000;
@@ -23,6 +24,7 @@ app.get("/all/", all);
 app.get("/getData/", getData);
 app.post("/reg/", register);
 app.get("/login/", login);
+app.get("/registeredUser/", reggisteredUser);
 app.get("/verifyEmail/", verifyEmail);
 app.get("/altlogin/", alternateLogin);
 app.post("/sendEmail/", sendEmail);

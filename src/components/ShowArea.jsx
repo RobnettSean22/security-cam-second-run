@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Header from "./Header";
 import Search from "../components/Search";
 import SortButton from "../components/SortButton";
 import SecurityDisplay from "../components/SecurityDisplay";
 import axios from "axios";
 import styled from "styled-components";
-import logo from "../assets/Logo.svg";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -209,14 +209,7 @@ const ShowArea = () => {
   console.log(2222, inactiveData);
   return (
     <Wrapper>
-      <header>
-        <img
-          placeholder='Search by Name or I...'
-          src={logo}
-          alt=''
-          style={{ width: "20%", height: "35%" }}
-        />
-      </header>
+      <Header />
       <Info>
         <h1>Your Cameras</h1> <h5>Total Devices: {mergeData.length}</h5>
       </Info>
