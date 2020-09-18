@@ -10,20 +10,35 @@ const Login = ({ regEmail, regPass, setRegEmail, setRegPass }) => {
       password: regPass
     });
     const log = res.data;
-    e.preventDefault();
+
     return log;
   };
 
   const verifyEmail = async e => {
     const res = axios.get("/verifyEmail/", { email: regEmail });
     const verify = res.data;
-    e.preventDefault();
+
     return verify;
   };
 
   return (
     <>
       {forgotPW ? (
+        <form
+          onSubmit={e => {
+            verifyEmail();
+          }}
+        >
+          <input
+            placeholder='email'
+            type='email'
+            value={regEmail}
+            onChange={e => setRegEmail(e.target.value)}
+          />
+
+          <button></button>
+        </form>
+      ) : (
         <div>
           <form
             onSubmit={e => {
@@ -44,23 +59,8 @@ const Login = ({ regEmail, regPass, setRegEmail, setRegPass }) => {
 
             <button></button>
           </form>
-          <button onClick={e => verifyEmail()}></button>
+          <button onClick={e => setForgotPW(true)}>forgot password</button>
         </div>
-      ) : (
-        <form
-          onSubmit={e => {
-            verifyEmail();
-          }}
-        >
-          <input
-            placeholder='email'
-            type='email'
-            value={regEmail}
-            onChange={e => setRegEmail(e.target.value)}
-          />
-
-          <button></button>
-        </form>
       )}
     </>
   );

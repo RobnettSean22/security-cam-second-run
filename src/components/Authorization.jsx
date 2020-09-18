@@ -14,10 +14,10 @@ const Authorization = () => {
       password: regPass,
       phone_number: regPhone
     });
-    setLogged(false);
-    e.preventDefault();
-    const reg = res.data;
 
+    const reg = await res.data;
+    setRegEmail("");
+    setRegPass("");
     return reg;
   };
 
@@ -27,6 +27,7 @@ const Authorization = () => {
         <form
           onSubmit={e => {
             register();
+            setLogged(false);
           }}
         >
           <input

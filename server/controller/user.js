@@ -145,7 +145,7 @@ module.exports = {
         algorithm: "sha512",
         digits: 6
       });
-
+      xUser = foundUser.email;
       if (authenticated) {
         res.status(200).send(req.session.foundUser);
       } else {

@@ -9,6 +9,14 @@ const Alternativelog = () => {
   const [emailOrPhone, setEmailOrPhone] = useState();
   const [userInfo, setUserInfo] = useState();
 
+  useEffect(() => {
+    const registeredUser = async () => {
+      const res = await axios.get("/registeredUser/");
+      setUserInfo(res.data);
+    };
+    return registeredUser();
+  });
+
   const altLogin = async () => {
     const res = await axios.get("/altlogin/", {
       email: altEmail,
@@ -21,7 +29,7 @@ const Alternativelog = () => {
     e.preventDefault();
     if (Number.isInteger(emailOrPhone)) {
       const sendEmail = async () => {
-        const res = await axios.get("/sendEmail/", { email: altEmail });
+        const res = await axios.get("/sendEmail/", { email: userInfo.email });
         const mail = res.data;
         setSentToken(true);
         return mail;
@@ -30,7 +38,7 @@ const Alternativelog = () => {
     } else {
       const sendSMS = async () => {
         const res = await axios.get("/sendSMS/", {
-          phone_number: setEmailOrPhone
+          phone_number: userInfo.phone_number
         });
         const text = res.data;
         return text;
