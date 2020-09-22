@@ -23,10 +23,10 @@ app.use(
 app.get("/all/", all);
 app.get("/getData/", getData);
 app.post("/reg/", register);
-app.get("/login/", login);
+app.post("/login/", login);
 app.get("/registeredUser/", reggisteredUser);
-app.get("/verifyEmail/", verifyEmail);
-app.get("/altlogin/", alternateLogin);
+app.post("/verifyEmail/", verifyEmail);
+app.post("/altlogin/", alternateLogin);
 app.post("/sendEmail/", sendEmail);
 app.post("/sendSMS/", sendSMS);
 app.delete("/killSession/", killSession);

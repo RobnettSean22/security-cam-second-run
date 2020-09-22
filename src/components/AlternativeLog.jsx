@@ -18,7 +18,7 @@ const Alternativelog = () => {
   });
 
   const altLogin = async () => {
-    const res = await axios.get("/altlogin/", {
+    const res = await axios.post("/altlogin/", {
       email: altEmail,
       password: altPass
     });

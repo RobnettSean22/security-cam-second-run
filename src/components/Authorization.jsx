@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Login from "./Login";
 import axios from "axios";
-const Authorization = () => {
+const Authorization = props => {
   const [logged, setLogged] = useState(true);
   const [regEmail, setRegEmail] = useState();
   const [regPass, setRegPass] = useState();
@@ -18,44 +18,36 @@ const Authorization = () => {
     const reg = await res.data;
     setRegEmail("");
     setRegPass("");
+    props.history.push("/login/");
     return reg;
   };
 
   return (
     <>
-      {logged ? (
-        <form
-          onSubmit={e => {
-            register();
-            setLogged(false);
-          }}
-        >
-          <input
-            placeholder='email'
-            type='email'
-            value={regEmail}
-            onChange={e => setRegEmail(e.target.value)}
-          />
-          <input
-            placeholder='password'
-            value={regPass}
-            onChange={e => setRegPass(e.target.value)}
-          />
-          <input
-            placeholder='phone_number'
-            value={regPhone}
-            onChange={e => setRegPhone(e.target.value)}
-          />
-          <button></button>
-        </form>
-      ) : (
-        <Login
-          regEmail={regEmail}
-          setRegEmail={setRegEmail}
-          regPass={regPass}
-          setRegPass={setRegPass}
+      <form
+        onSubmit={e => {
+          register();
+          setLogged(false);
+        }}
+      >
+        <input
+          placeholder='email'
+          type='email'
+          value={regEmail}
+          onChange={e => setRegEmail(e.target.value)}
         />
-      )}
+        <input
+          placeholder='password'
+          value={regPass}
+          onChange={e => setRegPass(e.target.value)}
+        />
+        <input
+          placeholder='phone_number'
+          value={regPhone}
+          onChange={e => setRegPhone(e.target.value)}
+        />
+        <button></button>
+      </form>
     </>
   );
 };

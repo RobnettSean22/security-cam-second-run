@@ -2,21 +2,25 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-const Login = ({ regEmail, regPass, setRegEmail, setRegPass }) => {
+const Login = props => {
   const [forgotPW, setForgotPW] = useState(false);
-  const loginIn = async e => {
-    const res = await axios.get("/login/", {
-      email: regEmail,
-      password: regPass
+  const [logEmail, setLogEmail] = useState("");
+  const [logPass, setLogPass] = useState("");
+
+  const login = async e => {
+    const res = await axios.post("/login/", {
+      email: logEmail,
+      password: logPass
     });
     const log = await res.data;
+    props.history.push("/security-cameras/");
     return log;
   };
 
   const verifyEmail = async e => {
-    const res = axios.get("/verifyEmail/", { email: regEmail });
+    const res = axios.post("/verifyEmail/", { email: logEmail });
     const verify = res.data;
-
+    props.history.push("/secondarylogin/");
     return verify;
   };
 
@@ -31,8 +35,8 @@ const Login = ({ regEmail, regPass, setRegEmail, setRegPass }) => {
           <input
             placeholder='email'
             type='email'
-            value={regEmail}
-            onChange={e => setRegEmail(e.target.value)}
+            value={logEmail}
+            onChange={e => setLogEmail(e.target.value)}
           />
 
           <button></button>
@@ -41,19 +45,19 @@ const Login = ({ regEmail, regPass, setRegEmail, setRegPass }) => {
         <div>
           <form
             onSubmit={e => {
-              loginIn();
+              login();
             }}
           >
             <input
               placeholder='email'
               type='email'
-              value={regEmail}
-              onChange={e => setRegEmail(e.target.value)}
+              value={logEmail}
+              onChange={e => setLogEmail(e.target.value)}
             />
             <input
               placeholder='password'
-              value={regPass}
-              onChange={e => setRegPass(e.target.value)}
+              value={logPass}
+              onChange={e => setLogPass(e.target.value)}
             />
 
             <button></button>

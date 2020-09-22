@@ -173,45 +173,45 @@ const Inactive = styled.div`
 const ShowArea = () => {
   const [byStatus, setByStatus] = useState(0);
   const [value, setValue] = useState("");
-  const [mergeData, setMergeData] = useState();
+  const [cameraData, setCameraData] = useState([]);
+  const [activeData, setActiveData] = useState([]);
+  const [inactiveData, setInactiveData] = useState([]);
 
   useEffect(() => {
-    const cameraData = async () => {
+    const camData = async () => {
       const res = await axios.get("/getData/");
       const data = await res.data;
-      return setByStatus(data);
+      let sortData = () => {
+        data.sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
+        const sort =
+          byStatus === 0 ? data : data.sort((a, b) => b.active - a.active);
+        return sort.filter(dVices => {
+          return (
+            dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
+            dVices.id.toString().indexOf(value) !== -1
+          );
+        });
+      };
+      return setCameraData(sortData());
     };
-    return cameraData();
+    const activeData = cameraData.filter(online => {
+      return online.active === true;
+    });
+    const inactiveData = cameraData.filter(online => {
+      return online.active === false;
+    });
+    return activeData, inactiveData, camData();
   });
 
-  let sortData = () => {
-    mergeData.sort((a, b) => {
-      return a.name.localeCompare(b.name);
-    });
-    const sort =
-      byStatus === 0
-        ? mergeData
-        : mergeData.sort((a, b) => b.active - a.active);
-    return sort.filter(dVices => {
-      return (
-        dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
-        dVices.id.toString().indexOf(value) !== -1
-      );
-    });
-  };
-  const activeData = sortData().filter(online => {
-    return online.active === true;
-  });
-  const inactiveData = sortData().filter(online => {
-    return online.active === false;
-  });
   console.log(1111, activeData);
   console.log(2222, inactiveData);
   return (
     <Wrapper>
       <Header />
       <Info>
-        <h1>Your Cameras</h1> <h5>Total Devices: {mergeData.length}</h5>
+        <h1>Your Cameras</h1> <h5>Total Devices: {cameraData.length}</h5>
       </Info>
       <SearchContainer>
         <Search setValue={setValue} value={value} />
@@ -221,7 +221,7 @@ const ShowArea = () => {
       {byStatus === 0 ? (
         <Title>
           <h3>All Devices</h3>
-          <h5>({sortData().length})</h5> <hr></hr>
+          <h5>({cameraData.length})</h5> <hr></hr>
         </Title>
       ) : (
         <Title>
@@ -233,7 +233,7 @@ const ShowArea = () => {
 
       {byStatus === 0 ? (
         <Cameras>
-          {sortData().map((devices, id) => (
+          {cameraData.map((devices, id) => (
             <SecurityDisplay key={id} devices={devices} />
           ))}
         </Cameras>

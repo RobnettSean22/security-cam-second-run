@@ -47,6 +47,7 @@ module.exports = {
         phone_number
       });
       index++;
+      console.log(userData);
     }
 
     res.status(200).send(req.session.userData);
