@@ -3,8 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 
 const Alternativelog = () => {
-  const [sentToken, setSentToken] = useState(false);
-  const [altEmail, setAltEmail] = useState();
   const [altPass, setAltPass] = useState();
 
   const [userInfo, setUserInfo] = useState();
@@ -12,8 +10,10 @@ const Alternativelog = () => {
   useEffect(() => {
     const registeredUser = async () => {
       const res = await axios.get("/registeredUser/");
-      setUserInfo(res.data);
+      const data = res.data;
+      return data;
     };
+    return setUserInfo(registeredUser);
   });
 
   const altLogin = async () => {
