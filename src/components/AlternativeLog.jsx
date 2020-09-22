@@ -14,7 +14,6 @@ const Alternativelog = () => {
       const res = await axios.get("/registeredUser/");
       setUserInfo(res.data);
     };
-    return registeredUser();
   });
 
   const altLogin = async () => {

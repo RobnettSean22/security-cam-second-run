@@ -5,32 +5,35 @@ function EmailSMS(props) {
 
   const verified = () => {
     const verifyEmail = async e => {
-      const res = axios.post("/verifyEmail/", { email: setEmailOrPhone });
+      const res = axios.post("/verifyEmail/", { email: emailOrPhone });
       const verify = res.data;
-      props.history.push("/secondarylogin/");
+
       return verify;
     };
     if (verifyEmail()) {
       const mailTo = e => {
         if (Number.isInteger(emailOrPhone)) {
-          const sendEmail = async () => {
-            const res = await axios.get("/sendEmail/", { email: emailOrPhone });
-            const mail = res.data;
-
-            return mail;
-          };
-          return sendEmail();
-        } else {
           const sendSMS = async () => {
-            const res = await axios.get("/sendSMS/", {
-              phone_number: emailOrPhone.phone_number
+            const res = await axios.post("/sendSMS/", {
+              phone_number: emailOrPhone
             });
             const text = res.data;
             return text;
           };
           return sendSMS();
+        } else {
+          const sendEmail = async () => {
+            const res = await axios.post("/sendEmail/", {
+              email: emailOrPhone
+            });
+            const mail = res.data;
+
+            return mail;
+          };
+          return sendEmail();
         }
       };
+      props.history.push("/secondarylogin/");
       return mailTo();
     } else {
       alert("an account with this email does not exist ");
@@ -38,16 +41,18 @@ function EmailSMS(props) {
   };
   return (
     <>
-      <form>
-        <input
-          placeholder='email'
-          type='email'
-          value={emailOrPhone}
-          onChange={e => setEmailOrPhone(e.target.value)}
-        />
+      <input
+        placeholder='email'
+        type='email'
+        value={emailOrPhone}
+        onChange={e => setEmailOrPhone(e.target.value)}
+      />
 
-        <button onClick={e => {}}></button>
-      </form>
+      <button
+        onClick={e => {
+          verified();
+        }}
+      ></button>
     </>
   );
 }

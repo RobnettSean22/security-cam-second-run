@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Login from "./Login";
 import axios from "axios";
 const Authorization = props => {
   const [logged, setLogged] = useState(true);
@@ -27,7 +26,6 @@ const Authorization = props => {
       <form
         onSubmit={e => {
           register();
-          setLogged(false);
         }}
       >
         <input

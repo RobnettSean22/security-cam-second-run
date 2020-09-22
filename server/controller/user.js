@@ -83,7 +83,7 @@ module.exports = {
     if (!foundUser) {
       res.status(400).send("user with this account does not exist");
     }
-    res.status(200).send("email matches");
+    res.status(200).send(true);
   },
   sendEmail: async (req, res) => {
     const { email } = req.body;
