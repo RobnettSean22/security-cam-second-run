@@ -8,8 +8,8 @@ export default function App() {
     <>
       <Switch>
         <Route exact path='/' component={Authorization} />
-        <Route exact path='/' component={Alternativelog} />
-        <Route exact path='/' component={ShowArea} />
+        <Route exact path='/secondarylogin/' component={Alternativelog} />
+        <Route exact path='/security-cameras/' component={ShowArea} />
       </Switch>
     </>
   );

@@ -4,13 +4,12 @@ import styled from "styled-components";
 
 const Login = ({ regEmail, regPass, setRegEmail, setRegPass }) => {
   const [forgotPW, setForgotPW] = useState(false);
-  const login = async e => {
+  const loginIn = async e => {
     const res = await axios.get("/login/", {
       email: regEmail,
       password: regPass
     });
-    const log = res.data;
-
+    const log = await res.data;
     return log;
   };
 
@@ -42,7 +41,7 @@ const Login = ({ regEmail, regPass, setRegEmail, setRegPass }) => {
         <div>
           <form
             onSubmit={e => {
-              login();
+              loginIn();
             }}
           >
             <input

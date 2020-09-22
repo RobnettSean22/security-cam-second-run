@@ -177,8 +177,8 @@ const ShowArea = () => {
 
   useEffect(() => {
     const cameraData = async () => {
-      const response = await axios.get("/getData/");
-      const data = await response.json();
+      const res = await axios.get("/getData/");
+      const data = await res.data;
       return setByStatus(data);
     };
     return cameraData();

@@ -57,7 +57,7 @@ module.exports = {
     const [foundUser] = await userData.filter(inUse => {
       return inUse.email === email ? email : null;
     });
-
+    console.log(foundUser);
     if (!foundUser) {
       res.status(400).send("username does not match");
     } else {
@@ -66,7 +66,7 @@ module.exports = {
       if (authenticated) {
         xUser = foundUser.email;
 
-        res.status(200).send(req.session.foundUser);
+        res.status(200).send(foundUser);
       } else {
         res.status(400).send("password does not match");
       }
