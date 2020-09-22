@@ -132,6 +132,7 @@ module.exports = {
 
   alternateLogin: async (req, res) => {
     const { email, digitCode } = req.body;
+    console.log(email, digitCode);
     const [foundUser] = await userData.filter(inUse => {
       return inUse.email === email ? email : null;
     });
@@ -140,13 +141,14 @@ module.exports = {
     } else {
       const authenticated = Speakeasy.totp.verify({
         secret: genSecret,
-
+        window: 2,
         token: digitCode,
 
         algorithm: "sha512",
         digits: 6
       });
       xUser = foundUser.email;
+      console.log(authenticated);
       if (authenticated) {
         res.status(200).send(req.session.foundUser);
       } else {

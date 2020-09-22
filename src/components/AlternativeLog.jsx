@@ -2,26 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-const Alternativelog = () => {
+const Alternativelog = props => {
   const [altPass, setAltPass] = useState();
 
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
-    const registeredUser = async () => {
-      const res = await axios.get("/registeredUser/");
-      const data = res.data;
-      return data;
-    };
-    return setUserInfo(registeredUser);
+    registeredUser();
   });
-
+  const registeredUser = async () => {
+    const res = await axios.get("/registeredUser/");
+    const data = res.data;
+    setUserInfo(data);
+  };
   const altLogin = async () => {
     const res = await axios.post("/altlogin/", {
       email: userInfo.email,
-      password: altPass
+      digitCode: altPass
     });
+    console.log(userInfo);
     const alt = res.data;
+    props.history.push("/security-cameras/");
     return alt;
   };
 
