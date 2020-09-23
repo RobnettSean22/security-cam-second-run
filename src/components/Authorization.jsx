@@ -22,6 +22,9 @@ const Regestration = styled.form`
     color: #888888;
     font-family: "Open Sans", sans-serif;
     font-style: italic;
+    &:focus {
+      outline: none;
+    }
   }
   button {
     width: 90px;
@@ -57,18 +60,18 @@ const Authorization = props => {
         }}
       >
         <input
-          placeholder='email'
+          placeholder='Enter Email'
           type='email'
           value={regEmail}
           onChange={e => setRegEmail(e.target.value)}
         />
         <input
-          placeholder='password'
+          placeholder='Enter Password'
           value={regPass}
           onChange={e => setRegPass(e.target.value)}
         />
         <input
-          placeholder='phone_number'
+          placeholder='Enter Phone Number'
           value={regPhone}
           onChange={e => setRegPhone(e.target.value)}
         />
