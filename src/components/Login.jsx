@@ -31,8 +31,6 @@ const Login = props => {
             value={logPass}
             onChange={e => setLogPass(e.target.value)}
           />
-
-          <button></button>
         </form>
         <button onClick={e => props.history.push("/send-code/")}>
           forgot password

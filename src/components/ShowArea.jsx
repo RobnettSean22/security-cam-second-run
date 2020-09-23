@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "./Header";
 import Search from "../components/Search";
 import SortButton from "../components/SortButton";
@@ -173,88 +173,100 @@ const Inactive = styled.div`
 const ShowArea = () => {
   const [byStatus, setByStatus] = useState(0);
   const [value, setValue] = useState("");
-  const [cameraData, setCameraData] = useState([]);
-  const [activeData, setActiveData] = useState([]);
-  const [inactiveData, setInactiveData] = useState([]);
+  const [cameraData, setCameraData] = useState(null);
+  const [active, setActive] = useState([]);
+  const [inactive, setInactive] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const camData = async () => {
-      const res = await axios.get("/getData/");
-      const data = await res.data;
-      let sortData = () => {
-        data.sort((a, b) => {
-          return a.name.localeCompare(b.name);
-        });
-        const sort =
-          byStatus === 0 ? data : data.sort((a, b) => b.active - a.active);
-        return sort.filter(dVices => {
-          return (
-            dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
-            dVices.id.toString().indexOf(value) !== -1
-          );
-        });
-      };
-      return setCameraData(sortData());
-    };
-    const activeData = cameraData.filter(online => {
-      return online.active === true;
-    });
-    const inactiveData = cameraData.filter(online => {
-      return online.active === false;
-    });
-    return activeData, inactiveData, camData();
+    camData();
   });
+  const camData = async () => {
+    const res = await axios.get("/getData/");
+    const data = await res.data;
+    let sortData = () => {
+      data.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+      const sort =
+        byStatus === 0 ? data : data.sort((a, b) => b.active - a.active);
+      return sort.filter(dVices => {
+        return (
+          dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
+          dVices.id.toString().indexOf(value) !== -1
+        );
+      });
+    };
+    setCameraData(sortData());
+    setActive(
+      sortData().filter(online => {
+        return online.active === true;
+      })
+    );
+    setInactive(
+      sortData().filter(online => {
+        return online.active === false;
+      })
+    );
+    setLoading(false);
+  };
 
-  console.log(1111, activeData);
-  console.log(2222, inactiveData);
+  console.log(1111, active);
+  console.log(2222, inactive);
   return (
     <Wrapper>
       <Header />
-      <Info>
-        <h1>Your Cameras</h1> <h5>Total Devices: {cameraData.length}</h5>
-      </Info>
-      <SearchContainer>
-        <Search setValue={setValue} value={value} />
-        <SortButton setByStatus={setByStatus} byStatus={byStatus} />
-      </SearchContainer>
-
-      {byStatus === 0 ? (
-        <Title>
-          <h3>All Devices</h3>
-          <h5>({cameraData.length})</h5> <hr></hr>
-        </Title>
+      {loading ? (
+        "hello world"
       ) : (
-        <Title>
-          <h3>Active Cameras</h3>
-          <h5>({activeData.length})</h5>
-          <hr></hr>
-        </Title>
-      )}
+        <span>
+          <Info>
+            <h1>Your Cameras</h1> <h5>Total Devices: {cameraData.length}</h5>
+          </Info>
+          <SearchContainer>
+            <Search setValue={setValue} value={value} />
+            <SortButton setByStatus={setByStatus} byStatus={byStatus} />
+          </SearchContainer>
 
-      {byStatus === 0 ? (
-        <Cameras>
-          {cameraData.map((devices, id) => (
-            <SecurityDisplay key={id} devices={devices} />
-          ))}
-        </Cameras>
-      ) : (
-        <StatusView>
-          <Active>
-            {activeData.map((devices, id) => (
-              <SecurityDisplay key={id} devices={devices} />
-            ))}
-          </Active>
-          <InactiveTitle>
-            <h3>Inactive Cameras</h3>
-            <h5>({inactiveData.length})</h5>
-            <hr></hr>
-          </InactiveTitle>
-          <Inactive>
-            {inactiveData.map((devices, id) => (
-              <SecurityDisplay key={id} devices={devices} />
-            ))}
-          </Inactive>
-        </StatusView>
+          {byStatus === 0 ? (
+            <Title>
+              <h3>All Devices</h3>
+              <h5>({cameraData.length})</h5> <hr></hr>
+            </Title>
+          ) : (
+            <Title>
+              <h3>Active Cameras</h3>
+              <h5>({active.length})</h5>
+              <hr></hr>
+            </Title>
+          )}
+
+          {byStatus === 0 ? (
+            <Cameras>
+              {cameraData.map((devices, id) => (
+                <SecurityDisplay key={id} devices={devices} />
+              ))}
+            </Cameras>
+          ) : (
+            <StatusView>
+              <Active>
+                {active.map((devices, id) => (
+                  <SecurityDisplay key={id} devices={devices} />
+                ))}
+              </Active>
+              <InactiveTitle>
+                <h3>Inactive Cameras</h3>
+                <h5>({inactive.length})</h5>
+                <hr></hr>
+              </InactiveTitle>
+              <Inactive>
+                {inactive.map((devices, id) => (
+                  <SecurityDisplay key={id} devices={devices} />
+                ))}
+              </Inactive>
+            </StatusView>
+          )}
+        </span>
       )}
     </Wrapper>
   );
