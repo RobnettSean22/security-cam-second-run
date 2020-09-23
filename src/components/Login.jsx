@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Header from "./Header";
 import styled from "styled-components";
 
 const Login = props => {
@@ -18,6 +19,7 @@ const Login = props => {
 
   return (
     <>
+      <Header />
       <div>
         <form>
           <input

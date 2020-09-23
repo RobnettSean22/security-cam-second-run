@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Header from "./Header";
 import axios from "axios";
 function EmailSMS(props) {
   const [emailOrPhone, setEmailOrPhone] = useState();
@@ -42,6 +43,7 @@ function EmailSMS(props) {
   };
   return (
     <>
+      <Header />
       <input
         placeholder='email'
         type='email'

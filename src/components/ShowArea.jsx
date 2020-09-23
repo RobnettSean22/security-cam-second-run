@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Search from "../components/Search";
 import SortButton from "../components/SortButton";
@@ -22,7 +22,14 @@ const Wrapper = styled.div`
     align-items: center;
   }
 `;
-
+const Grouped = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+`;
 const Info = styled.div`
   width: 40.5%;
   height: 5%;
@@ -223,7 +230,7 @@ const ShowArea = () => {
       {loading ? (
         "hello world"
       ) : (
-        <span>
+        <Grouped style={{ width: "100%", height: "100%" }}>
           <Info>
             <h1>Your Cameras</h1> <h5>Total Devices: {cameraData.length}</h5>
           </Info>
@@ -270,7 +277,7 @@ const ShowArea = () => {
               </Inactive>
             </StatusView>
           )}
-        </span>
+        </Grouped>
       )}
     </Wrapper>
   );

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
+import Header from "./Header";
 import axios from "axios";
 import styled from "styled-components";
 
 const Alternativelog = props => {
   const [altPass, setAltPass] = useState();
-
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
     registeredUser();
-  });
+  }, []);
   const registeredUser = async () => {
     const res = await axios.get("/registeredUser/");
     const data = res.data;
@@ -28,6 +28,7 @@ const Alternativelog = props => {
 
   return (
     <>
+      <Header />
       <form
         onSubmit={e => {
           altLogin();

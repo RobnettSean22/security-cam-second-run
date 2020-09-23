@@ -1,8 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Header from "./Header";
 import axios from "axios";
+
+const Regestration = styled.form`
+  width: 400px;
+  height: 279px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 2px;
+  input {
+    width: 387px;
+    height: 26px;
+  }
+  button {
+    width: 90px;
+    height: 28px;
+  }
+`;
+
 const Authorization = props => {
-  const [logged, setLogged] = useState(true);
   const [regEmail, setRegEmail] = useState();
   const [regPass, setRegPass] = useState();
   const [regPhone, setRegPhone] = useState();
@@ -23,7 +44,8 @@ const Authorization = props => {
 
   return (
     <>
-      <form
+      <Header />
+      <Regestration
         onSubmit={e => {
           register();
         }}
@@ -45,7 +67,7 @@ const Authorization = props => {
           onChange={e => setRegPhone(e.target.value)}
         />
         <button></button>
-      </form>
+      </Regestration>
     </>
   );
 };
