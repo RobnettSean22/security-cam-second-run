@@ -178,12 +178,10 @@ const ShowArea = () => {
   const [inactive, setInactive] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    camData();
-  });
   const camData = async () => {
     const res = await axios.get("/getData/");
     const data = await res.data;
+
     let sortData = () => {
       data.sort((a, b) => {
         return a.name.localeCompare(b.name);
@@ -197,19 +195,25 @@ const ShowArea = () => {
         );
       });
     };
-    setCameraData(sortData());
-    setActive(
-      sortData().filter(online => {
-        return online.active === true;
-      })
+
+    return (
+      setCameraData(sortData()),
+      setActive(
+        sortData().filter(online => {
+          return online.active === true;
+        })
+      ),
+      setInactive(
+        sortData().filter(online => {
+          return online.active === false;
+        })
+      ),
+      setLoading(false)
     );
-    setInactive(
-      sortData().filter(online => {
-        return online.active === false;
-      })
-    );
-    setLoading(false);
   };
+  useEffect(() => {
+    camData();
+  }, []);
 
   console.log(1111, active);
   console.log(2222, inactive);
