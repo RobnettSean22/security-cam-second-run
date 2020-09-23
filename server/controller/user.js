@@ -77,7 +77,11 @@ module.exports = {
   verifyEmail: async (req, res) => {
     const { email } = req.body;
     const [foundUser] = await userData.filter(inUse => {
-      return inUse.email === email ? email : null;
+      return inUse.email === email
+        ? email
+        : inUse.phone_number === email
+        ? email
+        : null;
     });
     loggedUser = foundUser;
     if (!foundUser) {
@@ -124,7 +128,7 @@ module.exports = {
     const from = "Vonage APIs";
     const to = phone_number;
     const text = token;
-
+    console.log(phone_number);
     nexmo.message.sendSms(from, to, text);
 
     res.status(200).send("text was sent");

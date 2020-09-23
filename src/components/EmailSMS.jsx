@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 function EmailSMS(props) {
   const [emailOrPhone, setEmailOrPhone] = useState();
-
+  console.log(emailOrPhone);
   const verified = () => {
     const verifyEmail = async e => {
       const res = axios.post("/verifyEmail/", { email: emailOrPhone });
@@ -12,10 +12,11 @@ function EmailSMS(props) {
     };
     if (verifyEmail()) {
       const mailTo = e => {
-        if (Number.isInteger(emailOrPhone)) {
+        const checkLetNum = parseInt(emailOrPhone);
+        if (Number.isInteger(checkLetNum)) {
           const sendSMS = async () => {
             const res = await axios.post("/sendSMS/", {
-              phone_number: emailOrPhone
+              phone_number: checkLetNum
             });
             const text = res.data;
             return text;
