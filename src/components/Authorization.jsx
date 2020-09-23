@@ -7,15 +7,21 @@ const Regestration = styled.form`
   width: 400px;
   height: 279px;
   margin: 0 auto;
+  background: #f2f5f2;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid #3fcaab;
   border-radius: 2px;
+  box-shadow: 4px 6px 6px -4px rgba(63, 202, 171, 1);
   input {
-    width: 387px;
+    width: 338px;
     height: 26px;
+    border-color: #f2f5f2;
+    color: #888888;
+    font-family: "Open Sans", sans-serif;
+    font-style: italic;
   }
   button {
     width: 90px;
