@@ -45,7 +45,7 @@ function EmailSMS(props) {
     <>
       <Header />
       <input
-        placeholder='email'
+        placeholder='Email or Phone'
         type='email'
         value={emailOrPhone}
         onChange={e => setEmailOrPhone(e.target.value)}

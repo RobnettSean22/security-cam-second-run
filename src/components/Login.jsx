@@ -27,8 +27,14 @@ const LoggingIn = styled.form`
     }
   }
   button {
-    width: 152px;
+    width: 155px;
     height: 39px;
+    border-color: #888888;
+    background: linear-gradient(to right, #a2dda7, #3fcaab);
+    font-family: "Open Sans", sans-serif;
+    font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 5px;
   }
   h5 {
     margin: 0;
@@ -75,7 +81,7 @@ const Login = props => {
             login();
           }}
         >
-          Log In
+          Login
         </button>
         <h5 onClick={e => props.history.push("/send-code/")}>
           Forgot Password?
