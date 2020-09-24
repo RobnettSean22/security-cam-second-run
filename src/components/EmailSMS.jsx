@@ -1,6 +1,42 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import axios from "axios";
+import styled from "styled-components";
+
+const SendTo = styled.form`
+  width: 400px;
+  height: 189px;
+  margin: 0 auto;
+  background: #f2f5f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid #3fcaab;
+  border-radius: 2px;
+  box-shadow: 4px 6px 6px -4px rgba(63, 202, 171, 1);
+  input {
+    width: 338px;
+    height: 35px;
+    border-color: #f2f5f2;
+    color: #888888;
+    font-family: "Open Sans", sans-serif;
+    font-style: italic;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    width: 155px;
+    height: 39px;
+    border-color: #888888;
+    background: linear-gradient(to right, #a2dda7, #3fcaab);
+    font-family: "Open Sans", sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 3px;
+  }
+`;
 function EmailSMS(props) {
   const [emailOrPhone, setEmailOrPhone] = useState();
   console.log(emailOrPhone);
@@ -44,18 +80,22 @@ function EmailSMS(props) {
   return (
     <>
       <Header />
-      <input
-        placeholder='Email or Phone'
-        type='email'
-        value={emailOrPhone}
-        onChange={e => setEmailOrPhone(e.target.value)}
-      />
+      <SendTo>
+        <input
+          placeholder='Email or Phone'
+          type='email'
+          value={emailOrPhone}
+          onChange={e => setEmailOrPhone(e.target.value)}
+        />
 
-      <button
-        onClick={e => {
-          verified();
-        }}
-      ></button>
+        <button
+          onClick={e => {
+            verified();
+          }}
+        >
+          Send Code
+        </button>
+      </SendTo>
     </>
   );
 }

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SearchInput = styled.div`
   width: 63%;
   height: 100%;
-  margin-left: 0.5%;
+  margin-left: 17.4%;
   input {
     width: 42%;
     height: 70%;

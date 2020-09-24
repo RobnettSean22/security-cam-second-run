@@ -5,7 +5,7 @@ import styled from "styled-components";
 const SortContainer = styled.div`
   width: 18%;
   height: 71%;
-  margin-right: 2.5%;
+  margin-right: 17.6%;
 `;
 const Button = styled.div`
   width: 100%;

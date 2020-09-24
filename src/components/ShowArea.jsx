@@ -3,6 +3,7 @@ import Header from "./Header";
 import Search from "../components/Search";
 import SortButton from "../components/SortButton";
 import SecurityDisplay from "../components/SecurityDisplay";
+import Spinner from "react-bootstrap/Spinner";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -31,7 +32,7 @@ const Grouped = styled.div`
   align-items: center;
 `;
 const Info = styled.div`
-  width: 40.5%;
+  width: 100%;
   height: 5%;
   display: flex;
   margin-top: 1%;
@@ -42,31 +43,32 @@ const Info = styled.div`
   h1 {
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 18px;
     margin: 0;
+    margin-left: 17.4%;
   }
   h5 {
     font-family: "Open Sans", sans-serif;
     font-style: italic;
     opacity: 0.5;
-    padding-top: 1%;
     font-size: 8px;
     margin: 0;
+    margin-left: 17.4%;
   }
 `;
 const SearchContainer = styled.div`
-  width: 41%;
+  width: 100%;
   height: 3%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
-  margin-top: 0.5%;
+  margin-top: 1.8%;
 `;
 const Title = styled.div`
-  width: 40%;
-  height: 5%;
-  margin-bottom: 20px;
+  width: 100%;
+  height: 1%;
+  margin-top: 3.3%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
@@ -77,20 +79,21 @@ const Title = styled.div`
     opacity: 0.5;
     margin: 0;
     font-size: 9px;
+    margin-left: 17.4%;
   }
   h5 {
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
     color: #181616;
     margin: 0;
-    padding-left: 1%;
+
     margin-bottom: 0.2%;
     font-size: 9px;
     opacity: 0.5;
   }
   hr {
     width: 78%;
-    margin-left: 4%;
+
     margin-bottom: 0.5%;
     opacity: 0.5;
   }
@@ -128,17 +131,15 @@ const InactiveTitle = styled.div`
   }
 `;
 const Cameras = styled.div`
-  width: 42%;
-  height: 76%;
-  padding-top: 1.2%;
+  width: 65.4%;
+  height: 69.1%;
+  margin-top: 2.8%;
   overflow-y: auto;
-  align-self: center;
   display: grid;
-  grid-template-columns: repeat(3, 30%);
-  grid-auto-rows: 25%;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
-  justify-content: center;
+  grid-template-columns: repeat(3, 280px);
+  grid-auto-rows: 219.2px;
+  grid-column-gap: 2.1%;
+  grid-row-gap: 1.9%;
 `;
 const StatusView = styled.div`
   width: 42%;
@@ -185,6 +186,9 @@ const ShowArea = () => {
   const [inactive, setInactive] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    camData();
+  }, []);
   const camData = async () => {
     const res = await axios.get("/getData/");
     const data = await res.data;
@@ -213,9 +217,6 @@ const ShowArea = () => {
       setLoading(false)
     );
   };
-  useEffect(() => {
-    camData();
-  }, []);
 
   console.log(1111, active);
   console.log(2222, inactive);
@@ -223,7 +224,7 @@ const ShowArea = () => {
     <Wrapper>
       <Header />
       {loading ? (
-        "hello world"
+        <Spinner animation='border' role='status' variant='dark' />
       ) : (
         <Grouped style={{ width: "100%", height: "100%" }}>
           <Info>

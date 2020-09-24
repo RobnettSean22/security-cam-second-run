@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const CameraBlocks = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 290px;
+  height: 217.2px;
   display: flex;
   overflow: hidden;
   flex-direction: column;
@@ -15,7 +15,7 @@ const CameraBlocks = styled.div`
 `;
 const CameraName = styled.div`
   width: 100%;
-  height: 45%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,8 +24,8 @@ const CameraName = styled.div`
   background: #ffffff;
 
   .active {
-    width: 90%;
-    height: 90%;
+    width: 91.3%;
+    height: 93%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -51,8 +51,8 @@ const CameraName = styled.div`
     }
   }
   .inactive {
-    width: 90%;
-    height: 90%;
+    width: 91.3%;
+    height: 93%;
     border-left: 3px solid red;
     display: flex;
     justify-content: center;
