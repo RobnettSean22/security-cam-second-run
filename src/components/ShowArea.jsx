@@ -216,14 +216,7 @@ const ShowArea = () => {
   useEffect(() => {
     camData();
   }, []);
-  const searchThrough = x => {
-    x.filter(dVices => {
-      return (
-        dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
-        dVices.id.toString().indexOf(value) !== -1
-      );
-    });
-  };
+
   console.log(1111, active);
   console.log(2222, inactive);
   return (
