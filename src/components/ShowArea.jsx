@@ -195,12 +195,7 @@ const ShowArea = () => {
       });
       const sort =
         byStatus === 0 ? data : data.sort((a, b) => b.active - a.active);
-      return sort.filter(dVices => {
-        return (
-          dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
-          dVices.id.toString().indexOf(value) !== -1
-        );
-      });
+      return sort;
     };
 
     return (
@@ -221,7 +216,14 @@ const ShowArea = () => {
   useEffect(() => {
     camData();
   }, []);
-
+  const searchThrough = x => {
+    x.filter(dVices => {
+      return (
+        dVices.name.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
+        dVices.id.toString().indexOf(value) !== -1
+      );
+    });
+  };
   console.log(1111, active);
   console.log(2222, inactive);
   return (
@@ -254,16 +256,30 @@ const ShowArea = () => {
 
           {byStatus === 0 ? (
             <Cameras>
-              {cameraData.map((devices, id) => (
-                <SecurityDisplay key={id} devices={devices} />
-              ))}
+              {cameraData
+                .filter(dVices => {
+                  return (
+                    dVices.name.toUpperCase().indexOf(value.toUpperCase()) !==
+                      -1 || dVices.id.toString().indexOf(value) !== -1
+                  );
+                })
+                .map((devices, id) => (
+                  <SecurityDisplay key={id} devices={devices} />
+                ))}
             </Cameras>
           ) : (
             <StatusView>
               <Active>
-                {active.map((devices, id) => (
-                  <SecurityDisplay key={id} devices={devices} />
-                ))}
+                {active
+                  .filter(dVices => {
+                    return (
+                      dVices.name.toUpperCase().indexOf(value.toUpperCase()) !==
+                        -1 || dVices.id.toString().indexOf(value) !== -1
+                    );
+                  })
+                  .map((devices, id) => (
+                    <SecurityDisplay key={id} devices={devices} />
+                  ))}
               </Active>
               <InactiveTitle>
                 <h3>Inactive Cameras</h3>
@@ -271,9 +287,16 @@ const ShowArea = () => {
                 <hr></hr>
               </InactiveTitle>
               <Inactive>
-                {inactive.map((devices, id) => (
-                  <SecurityDisplay key={id} devices={devices} />
-                ))}
+                {inactive
+                  .filter(dVices => {
+                    return (
+                      dVices.name.toUpperCase().indexOf(value.toUpperCase()) !==
+                        -1 || dVices.id.toString().indexOf(value) !== -1
+                    );
+                  })
+                  .map((devices, id) => (
+                    <SecurityDisplay key={id} devices={devices} />
+                  ))}
               </Inactive>
             </StatusView>
           )}
