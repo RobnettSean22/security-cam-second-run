@@ -14,14 +14,7 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
-  header {
-    width: 100%;
-    height: 7%;
-    background-image: linear-gradient(to right, #a2dda7, #3fcaab);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  background: #f5f6f8;
 `;
 const Grouped = styled.div`
   width: 100%;
@@ -43,7 +36,7 @@ const Info = styled.div`
   h1 {
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 25px;
     margin: 0;
     margin-left: 17.4%;
   }
@@ -51,7 +44,7 @@ const Info = styled.div`
     font-family: "Open Sans", sans-serif;
     font-style: italic;
     opacity: 0.5;
-    font-size: 8px;
+    font-size: 11px;
     margin: 0;
     margin-left: 17.4%;
   }
@@ -78,23 +71,22 @@ const Title = styled.div`
     color: #181616;
     opacity: 0.5;
     margin: 0;
-    font-size: 9px;
+    font-size: 13px;
     margin-left: 17.4%;
   }
   h5 {
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
     color: #181616;
-    margin: 0;
+    margin-left: 3.4%;
 
     margin-bottom: 0.2%;
-    font-size: 9px;
+    font-size: 11px;
     opacity: 0.5;
   }
   hr {
-    width: 78%;
-
-    margin-bottom: 0.5%;
+    width: 57.6%;
+    margin: 0 0 0.5% -2%;
     opacity: 0.5;
   }
 `;
