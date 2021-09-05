@@ -41,9 +41,10 @@ const Alternativelog = props => {
   const registeredUser = async () => {
     const res = await axios.get("/registeredUser/");
     const data = res.data;
+    // data is set in state
     setUserInfo(data);
   };
-  // 
+  // 6 digit code sent to email or phone is typed ad user is will be loggedin
   const altLogin = async () => {
     const res = await axios.post("/altlogin/", {
       email: userInfo.email,

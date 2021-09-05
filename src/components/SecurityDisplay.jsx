@@ -88,13 +88,16 @@ const ImgContainer = styled.div`
     border-radius: 10px 10px 0px 0px;
   }
 `;
-function SecurityDisplay({ devices, id }) {
+const SecurityDisplay = ({ devices, id }) => {
+
   const getRepContents = devices.name.substring(15);
   const shortName =
+  //shorten camera names to 15 characters or more
     devices.name.length > 15
       ? devices.name.replace(getRepContents, "...")
       : devices.name;
 
+  // creation of display cards for each camera 
   return (
     <CameraBlocks key={devices.id}>
       <ImgContainer>
