@@ -32,6 +32,8 @@ const Regestration = styled.form`
   }
 `;
 
+// functionality for call to registration endpoint
+
 const Authorization = props => {
   const [regEmail, setRegEmail] = useState();
   const [regPass, setRegPass] = useState();
@@ -47,6 +49,7 @@ const Authorization = props => {
     const reg = await res.data;
     setRegEmail("");
     setRegPass("");
+    // utilizes the push function as a link to route to the next page (being the Showarea)
     props.history.push("/login/");
     return reg;
   };
@@ -54,8 +57,10 @@ const Authorization = props => {
   return (
     <>
       <Header />
+      
       <Regestration
         onSubmit={e => {
+          // set to run upon submission 
           register();
         }}
       >

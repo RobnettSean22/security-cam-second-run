@@ -50,6 +50,7 @@ const Login = props => {
   const [logPass, setLogPass] = useState("");
 
   const login = async e => {
+    // endponit for login authorization 
     const res = await axios.post("/login/", {
       email: logEmail,
       password: logPass

@@ -28,18 +28,22 @@ const Alternative = styled.form`
   }
 `;
 
+//  functionality for call to for secondary login endpoint (OTP)
 const Alternativelog = props => {
   const [altPass, setAltPass] = useState();
   const [userInfo, setUserInfo] = useState();
 
+
   useEffect(() => {
     registeredUser();
   }, []);
+  // end point check for existance of user
   const registeredUser = async () => {
     const res = await axios.get("/registeredUser/");
     const data = res.data;
     setUserInfo(data);
   };
+  // 
   const altLogin = async () => {
     const res = await axios.post("/altlogin/", {
       email: userInfo.email,

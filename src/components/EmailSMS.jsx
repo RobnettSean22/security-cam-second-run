@@ -37,7 +37,8 @@ const SendTo = styled.form`
     letter-spacing: 3px;
   }
 `;
-function EmailSMS(props) {
+// Sending OTP (one time password)
+const EmailSMS = (props) =>{
   const [emailOrPhone, setEmailOrPhone] = useState();
   console.log(emailOrPhone);
   const verified = () => {
@@ -47,9 +48,13 @@ function EmailSMS(props) {
 
       return verify;
     };
+    //verify if the email entered is registered as a user
     if (verifyEmail()) {
       const mailTo = e => {
+        //change entry into a string 
         const checkLetNum = parseInt(emailOrPhone);
+         // option to send OTP to the phone number associated with the user email on record
+       
         if (Number.isInteger(checkLetNum)) {
           const sendSMS = async () => {
             const res = await axios.post("/sendSMS/", {
@@ -60,6 +65,7 @@ function EmailSMS(props) {
           };
           return sendSMS();
         } else {
+          //option for the OTP to be sent to phone number on record with user email
           const sendEmail = async () => {
             const res = await axios.post("/sendEmail/", {
               email: emailOrPhone
