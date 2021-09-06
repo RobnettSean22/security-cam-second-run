@@ -215,8 +215,10 @@ module.exports = {
         .values()
     ];
     if (xUser.length) {
+      // if the user is logged in then data will display in the display area
       res.status(200).send(mergeData);
-    } else {
+    } else {er is not
+      // if url is accessed but the user has not been authenticated then data will not display
       res.status(400).send("not logged in");
     }
   }
