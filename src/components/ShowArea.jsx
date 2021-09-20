@@ -134,7 +134,7 @@ const Cameras = styled.div`
   grid-row-gap: 1.9%;
 `;
 const StatusView = styled.div`
-  width: 42%;
+  width: 69.4%;
   height: 75%;
   padding-top: 1.2%;
   overflow-y: auto;
@@ -145,25 +145,25 @@ const StatusView = styled.div`
 `;
 const Active = styled.div`
   width: 100%;
-  height: 48%;
+  height: 85%;
   display: grid;
   display: grid;
   grid-template-columns: repeat(3, 30%);
   grid-auto-rows: 48%;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-column-gap: 13px;
+  grid-row-gap: 13px;
   justify-content: center;
   overflow: none;
 `;
 const Inactive = styled.div`
   width: 100%;
-  height: 48%;
+  height: 85%;
   display: grid;
   display: grid;
   grid-template-columns: repeat(3, 30%);
   grid-auto-rows: 48%;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-column-gap: 13px;
+  grid-row-gap: 13px;
   justify-content: center;
   overflow: none;
   h3 {
@@ -197,12 +197,12 @@ const ShowArea = () => {
     return (
       setCameraData(sortData()),
       setActive(
-        sortData().filter(online => {
+        sortData().filter((online) => {
           return online.active === true;
         })
       ),
       setInactive(
-        sortData().filter(online => {
+        sortData().filter((online) => {
           return online.active === false;
         })
       ),
@@ -243,7 +243,7 @@ const ShowArea = () => {
           {byStatus === 0 ? (
             <Cameras>
               {cameraData
-                .filter(dVices => {
+                .filter((dVices) => {
                   return (
                     dVices.name.toUpperCase().indexOf(value.toUpperCase()) !==
                       -1 || dVices.id.toString().indexOf(value) !== -1
@@ -257,7 +257,7 @@ const ShowArea = () => {
             <StatusView>
               <Active>
                 {active
-                  .filter(dVices => {
+                  .filter((dVices) => {
                     return (
                       dVices.name.toUpperCase().indexOf(value.toUpperCase()) !==
                         -1 || dVices.id.toString().indexOf(value) !== -1
@@ -274,7 +274,7 @@ const ShowArea = () => {
               </InactiveTitle>
               <Inactive>
                 {inactive
-                  .filter(dVices => {
+                  .filter((dVices) => {
                     return (
                       dVices.name.toUpperCase().indexOf(value.toUpperCase()) !==
                         -1 || dVices.id.toString().indexOf(value) !== -1

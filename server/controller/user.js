@@ -9,24 +9,22 @@ const devices = require("../../data/sample-devices.json");
 const status = require("../../data/sample-status.json");
 const Speakeasy = require("speakeasy");
 
-
-
 let genSecret;
 let token;
 let xUser;
 let index = 0;
 let loggedUser;
-// token creation 
+// token creation
 const genToken = () => {
   const secret = Speakeasy.generateSecret().ascii;
-// 
+  //
   genSecret = "robnettsean@gmail.com" + secret;
 
   token = Speakeasy.totp({
     secret: genSecret,
 
     algorithm: "sha512",
-    digits: 6
+    digits: 6,
   });
 };
 module.exports = {
@@ -37,10 +35,10 @@ module.exports = {
   // registration of new user
   register: async (req, res) => {
     const { email, password, phone_number } = req.body;
-    const foundUser = await userData.filter(inUse => {
+    const foundUser = await userData.filter((inUse) => {
       return inUse.email === email ? email : null;
     });
-//checks if user is already in the system
+    //checks if user is already in the system
     if (foundUser.length) {
       res.status(400).send(`a login with this email already exists`);
       // if user is not found then a new user will be created
@@ -51,31 +49,29 @@ module.exports = {
       userData.push({
         email,
         password: hashedPassword,
-        phone_number
+        phone_number,
       });
       index++;
-    
     }
 
     res.status(200).send(req.session.userData);
   },
 
   login: async (req, res) => {
-    // credentials are entered 
+    // credentials are entered
     const { email, password } = req.body;
-    const [foundUser] = await userData.filter(inUse => {
+    const [foundUser] = await userData.filter((inUse) => {
       return inUse.email === email ? email : null;
     });
-   
+
     if (!foundUser) {
       // credentials (username) are checked for verification.
       res.status(400).send("username does not match");
     } else {
-       // (password) credentials are checked 
+      // (password) credentials are checked
       const authenticated = bcrypt.compareSync(password, foundUser.password);
 
       if (authenticated) {
-       
         xUser = foundUser.email;
 
         res.status(200).send(foundUser);
@@ -85,10 +81,10 @@ module.exports = {
     }
   },
 
-//forgotten password email verification check
+  //forgotten password email verification check
   verifyEmail: async (req, res) => {
     const { email } = req.body;
-    const [foundUser] = await userData.filter(inUse => {
+    const [foundUser] = await userData.filter((inUse) => {
       return inUse.email === email
         ? email
         : inUse.phone_number === email
@@ -110,8 +106,8 @@ module.exports = {
       service: "Gmail",
       auth: {
         user: EMAIL,
-        pass: PASSWORD
-      }
+        pass: PASSWORD,
+      },
     });
 
     await transporter.sendMail({
@@ -126,7 +122,7 @@ module.exports = {
              <li><h3>${token}</h3></li>
             
          </ul>
-         <body>`
+         <body>`,
     });
 
     res.status(200).send("email was sent");
@@ -138,13 +134,13 @@ module.exports = {
     genToken();
     const nexmo = new Nexmo({
       apiKey: APIKEY,
-      apiSecret: APISECRET
+      apiSecret: APISECRET,
     });
 
     const from = "Vonage APIs";
     const to = phone_number;
     const text = token;
-   
+
     nexmo.message.sendSms(from, to, text);
 
     res.status(200).send("text was sent");
@@ -154,7 +150,7 @@ module.exports = {
   alternateLogin: async (req, res) => {
     const { email, digitCode } = req.body;
 
-    const [foundUser] = await userData.filter(inUse => {
+    const [foundUser] = await userData.filter((inUse) => {
       return inUse.email === email ? email : null;
     });
     if (!foundUser) {
@@ -167,10 +163,10 @@ module.exports = {
         token: digitCode,
 
         algorithm: "sha512",
-        digits: 6
+        digits: 6,
       });
       xUser = foundUser.email;
-   
+
       if (authenticated) {
         res.status(200).send(req.session.foundUser);
       } else {
@@ -184,7 +180,7 @@ module.exports = {
   },
   killSession: async (req, res, next) => {
     req.session.destroy();
-    let i = await userData.findIndex(x => x.email === xUser);
+    let i = await userData.findIndex((x) => x.email === xUser);
 
     xUser = null;
     res.status(200).send(userData.splice(i, 1));
@@ -197,14 +193,14 @@ module.exports = {
     );
     const cameraStatus = await JSON.parse(renameProperty);
     const nameOfDevice = await devices.devices;
-// the camera data comes in to seperate "files" but rely on each other
+    // the camera data comes in to seperate "files" but rely on each other
     let mergeData = await [
       ...[cameraStatus, nameOfDevice]
         .reduce(
           (m, arr) => (
             // data is combined and made into a new object based off of their matching id's
             arr.forEach(
-              obj =>
+              (obj) =>
                 (m.has(obj.id) && Object.assign(m.get(obj.id), obj)) ||
                 m.set(obj.id, obj)
             ),
@@ -212,14 +208,14 @@ module.exports = {
           ),
           new Map()
         )
-        .values()
+        .values(),
     ];
     if (xUser.length) {
       // if the user is logged in then data will display in the display area
       res.status(200).send(mergeData);
-    } else {er is not
+    } else {
       // if url is accessed but the user has not been authenticated then data will not display
       res.status(400).send("not logged in");
     }
-  }
+  },
 };
