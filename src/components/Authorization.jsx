@@ -34,16 +34,16 @@ const Regestration = styled.form`
 
 // functionality for call to registration endpoint
 
-const Authorization = props => {
+const Authorization = (props) => {
   const [regEmail, setRegEmail] = useState();
   const [regPass, setRegPass] = useState();
   const [regPhone, setRegPhone] = useState();
   console.log(regEmail);
-  const register = async e => {
+  const register = async (e) => {
     const res = await axios.post("/reg/", {
       email: regEmail,
       password: regPass,
-      phone_number: regPhone
+      phone_number: regPhone,
     });
 
     const reg = await res.data;
@@ -57,10 +57,10 @@ const Authorization = props => {
   return (
     <>
       <Header />
-      
+
       <Regestration
-        onSubmit={e => {
-          // set to run upon submission 
+        onSubmit={(e) => {
+          // set to run upon submission
           register();
         }}
       >
@@ -68,19 +68,19 @@ const Authorization = props => {
           placeholder='Enter Email'
           type='email'
           value={regEmail}
-          onChange={e => setRegEmail(e.target.value)}
+          onChange={(e) => setRegEmail(e.target.value)}
         />
         <input
           placeholder='Enter Password'
           value={regPass}
-          onChange={e => setRegPass(e.target.value)}
+          onChange={(e) => setRegPass(e.target.value)}
         />
         <input
           placeholder='Enter Phone Number'
           value={regPhone}
-          onChange={e => setRegPhone(e.target.value)}
+          onChange={(e) => setRegPhone(e.target.value)}
         />
-        <button></button>
+        <button>Register</button>
       </Regestration>
     </>
   );
